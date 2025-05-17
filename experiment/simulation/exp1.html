@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
+    <link rel="stylesheet" href="./css/exp1.css">
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <title>Weak Law of Large Numbers</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="columns is-centered">
+                <div class="column is-one-quarter v-instruction-title">
+                    Tasks
+                </div>
+                <div class="column">
+                    <div class="v-tabs">
+                        <ul>
+                            <li id="Task1" onclick="window.location.href = 'exp1.html';">
+                                <a>Comparison of Various forms of convergence</a>
+                            </li>
+                            <li id="Task2" onclick="window.location.href = 'exp2.html';" class="is-active">
+                                <a>Weak Law of Large Numbers</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered">
+            <div class="column">
+                <div class="v-collapsible-instruction-container v-instruction-container">
+                    <div class="v-collapsible is-size-5">Instructions</div>
+                    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                        <ul style="list-style: disc;">
+                            <ul style="list-style: disc; margin-bottom: 2%">
+                                <b>Procedure:</b>
+                                <li>Select a distribution type from the dropdown menu</li>
+                                <li>Adjust the parameters for your chosen distribution</li>
+                                <li>Set the maximum number of samples (n) using the slider and run the experiment.</li>
+                                <li>The red line shows the theoretical mean (µ) and the blue plot shows the sample mean.</li>
+                                <li>Watch how the sample mean converges to µ as n increases</li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <section id="page1">
+        <div class="columns is-centered">
+            <div class="column is-11-desktop is-12-tablet is-12-mobile">
+                <div class="v-datalist-container components-list">
+                    <br>
+                    <p>The Weak Law of Large Numbers states that for i.i.d. random variables with finite mean µ, the sample average converges in probability to µ:</p>
+                    <p>$$\frac{1}{n}\sum_{i=1}^n X_i \xrightarrow{P} \mu \text{ as } n \to \infty$$</p>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start" style="margin-top: 2%;">
+            <div class="column is-8-desktop is-12-tablet is-12-mobile">
+                <div class="box-question">
+                    <div class="control-panel">
+
+							
+							<div class="controls-container">
+								<div class="field">
+									<label class="label">Distribution Type</label>
+									<div class="control">
+										<div class="select" style="width: auto;">
+											<select id="distribution-type">
+												<option value="bernoulli">Bernoulli (p)</option>
+												<option value="uniform">Uniform (a,b)</option>
+												<option value="normal">Normal (µ,σ)</option>
+												<option value="exponential">Exponential (λ)</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								
+								<div id="parameter-controls">
+									<!-- Parameters will be loaded here dynamically -->
+								</div>
+							</div>
+
+                        <div class="field">
+                            <label class="label">Max Samples (n)</label>
+                            <input id="sample-size" class="slider is-fullwidth" type="range" min="10" max="10000" value="1000" step="10">
+                            <div class="value-display">Selected: <span id="sample-size-value">1000</span></div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <button id="run-btn" class="button is-primary">Run Experiment</button>
+                                <button id="reset-btn" class="button is-light">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="convergence-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-3-desktop is-4-tablet is-12-mobile">
+                <div class="v-datalist-container components-list canvas-container">
+                    <div class="v-datalist-title">Observations</div>
+                    <div id="observations">
+                        <p><strong>Theoretical Mean (µ):</strong> <span id="theoretical-mean">0.5</span></p>
+                        <p><strong>Current Sample Mean:</strong> <span id="current-mean">-</span></p>
+                        <p><strong>Absolute Error:</strong> <span id="absolute-error">-</span></p>
+                        <!-- <p><strong>Convergence Rate:</strong> <span id="convergence-rate">-</span></p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
+    <script src="./js/wlln.js"></script>
+</body>
+</html>
