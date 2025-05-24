@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
-    <link rel="stylesheet" href="./css/exp1.css">
+    <link rel="stylesheet" href="./css/exp2.css">
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
@@ -23,10 +23,10 @@
                 <div class="column">
                     <div class="v-tabs">
                         <ul>
-                            <li id="Task1" onclick="window.location.href = 'exp1.html';">
+                            <li id="Task1" onclick="window.location.href = 'exp1.html';" class="is-active">
                                 <a>Comparison of Various forms of convergence</a>
                             </li>
-                            <li id="Task2" onclick="window.location.href = 'exp2.html';" class="is-active">
+                            <li id="Task2" onclick="window.location.href = 'exp2.html';" >
                                 <a>Weak Law of Large Numbers</a>
                             </li>
                         </ul>
@@ -43,11 +43,11 @@
                         <ul style="list-style: disc;">
                             <ul style="list-style: disc; margin-bottom: 2%">
                                 <b>Procedure:</b>
-                                <li>Select a distribution type from the dropdown menu</li>
-                                <li>Adjust the parameters for your chosen distribution</li>
-                                <li>Set the maximum number of samples (n) using the slider and run the experiment.</li>
-                                <li>The red line shows the theoretical mean (µ) and the blue plot shows the sample mean.</li>
-                                <li>Watch how the sample mean converges to µ as n increases</li>
+                                <li>Read the experiment setting. The random variable \(X_n\) is defined there.</li>
+                                <li>Now enter a value of \(\omega\) in the range \([0,1]\).</li>
+                                <li>Enter a block number \(k\)</li>
+                                <li>Observe how for any value of \(\omega\) and any \(k\), there will be a random variable \(X_n\) in that block which has \(X_n(\omega)=1\)</li>
+                                <li>Additionally, also see that how the sequence \({X_n(\omega)}\) for \(n=1,2,3...\) does not converge and does not have a limit.</li>
                             </ul>
                         </ul>
                     </div>
@@ -60,53 +60,45 @@
     <section id="page1">
         <div class="columns is-centered">
             <div class="column is-11-desktop is-12-tablet is-12-mobile">
-                <div class="v-datalist-container components-list">
-                    <br>
-                    <p>The Weak Law of Large Numbers states that for i.i.d. random variables with finite mean µ, the sample average converges in probability to µ:</p>
-                    <p>$$\frac{1}{n}\sum_{i=1}^n X_i \xrightarrow{P} \mu \text{ as } n \to \infty$$</p>
-                    <br>
+                <div class="v-datalist-container components-list" >
+                    <p style="margin-left: 3%; margin-right: 3%; margin-top: 2%; margin-bottom: 2%;"><strong>(Moving, shrinking rectangles) </strong>Let \((X_n : n \geq 1)\) be the sequence of random variables on the standard unit-interval probability space, as shown in the below Figure. The variable \(X_1\) is identically one. The variables \(X_2\) and \(X_3\) are one on intervals of length \(\frac{1}{2}\). The variables \(X_4, X_5, X_6\), and \(X_7\) are one on intervals of length \(\frac{1}{4}\). In general, each \(n \geq 1\) can be written as \(n = 2^k + j\) where \(k = \lfloor \log_2 n \rfloor\) and \(0 \leq j < 2^k\). The variable \(X_n\) is one on the length \(2^{-k}\) interval \((j 2^{-k}, (j+1) 2^{-k}]\).</p>
+                    <div style="text-align: center; margin-bottom: 2%;">
+                        <img src="./images/figure2_3.png" alt="Figure 2.3 - Random Variable Intervals" style="max-width: 50%; height: auto;">
+                    </div>
                 </div>
             </div>
         </div>
-
+        
         <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start" style="margin-top: 2%;">
             <div class="column is-8-desktop is-12-tablet is-12-mobile">
                 <div class="box-question">
                     <div class="control-panel">
 
-							
-							<div class="controls-container">
-								<div class="field">
-									<label class="label">Distribution Type</label>
-									<div class="control">
-										<div class="select" style="width: auto;">
-											<select id="distribution-type">
-												<option value="bernoulli">Bernoulli (p)</option>
-												<option value="uniform">Uniform (a,b)</option>
-												<option value="normal">Normal (µ,σ)</option>
-												<option value="exponential">Exponential (λ)</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								
-								<div id="parameter-controls">
-									<!-- Parameters will be loaded here dynamically -->
-								</div>
-							</div>
-
-                        <div class="field">
-                            <label class="label">Max Samples (n)</label>
-                            <input id="sample-size" class="slider is-fullwidth" type="range" min="10" max="10000" value="1000" step="10">
-                            <div class="value-display">Selected: <span id="sample-size-value">1000</span></div>
-                        </div>
-
-                        <div class="field">
-                            <div class="control">
-                                <button id="run-btn" class="button is-primary">Run Experiment</button>
-                                <button id="reset-btn" class="button is-light">Reset</button>
+                        <p>
+                            Given the sequence of random variables \(X_n\) defined above, enter the \(\omega\) value to and the block number \(k\) to observe the random variable \(X_n\) in the \(k^{\text{th}}\) block that has the value \(X_n(\omega)=1\). Also observe the non convergence of the sequence \(X_n(\omega)\)
+                        </p>
+                        <br>
+                        
+                        <label for="omega">Enter a value of \( \omega \in (0, 1) \):</label>
+                        <input type="number" id="omega" step="0.0001" placeholder="e.g. 0.05">
+                        <br><br>
+                        
+                        <label for="block">Enter block number \( k \in \mathbb{N^+} \):</label>
+                        <input type="number" id="block" min="1" placeholder="e.g. 2">
+                        <br><br>
+                        
+                        <button onclick="runConvergence()">Check Convergence</button>
+                        <br><br>
+                        
+                        <div style="display: flex; justify-content: center; gap: 20px;">
+                            <div style="flex: 1;">
+                                <canvas id="randomVariablePlot" style="width: 100%; max-width: 600px; max-height: 300px;"></canvas>
+                            </div>
+                            <div style="flex: 1;">
+                                <canvas id="omegaSequencePlot" style="width: 100%; max-width: 600px; max-height: 300px;"></canvas>
                             </div>
                         </div>
+                                                                            
                     </div>
 
                     <div class="chart-container">
@@ -117,11 +109,8 @@
             <div class="column is-3-desktop is-4-tablet is-12-mobile">
                 <div class="v-datalist-container components-list canvas-container">
                     <div class="v-datalist-title">Observations</div>
-                    <div id="observations">
-                        <p><strong>Theoretical Mean (µ):</strong> <span id="theoretical-mean">0.5</span></p>
-                        <p><strong>Current Sample Mean:</strong> <span id="current-mean">-</span></p>
-                        <p><strong>Absolute Error:</strong> <span id="absolute-error">-</span></p>
-                        <!-- <p><strong>Convergence Rate:</strong> <span id="convergence-rate">-</span></p> -->
+                    <div id="observations" style="margin-left: 3%; margin-right: 3%; margin-top: 2%; margin-bottom: 2%; padding: 2px 5px 10px 10px;">
+                        <!-- observation here -->
                     </div>
                 </div>
             </div>
@@ -129,6 +118,6 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
-    <script src="./js/wlln.js"></script>
+    <script src="./js/convergence.js"></script>
 </body>
 </html>
