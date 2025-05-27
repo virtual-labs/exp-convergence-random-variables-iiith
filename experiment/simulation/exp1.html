@@ -61,7 +61,7 @@
         <div class="columns is-centered">
             <div class="column is-11-desktop is-12-tablet is-12-mobile">
                 <div class="v-datalist-container components-list" >
-                    <p style="margin-left: 3%; margin-right: 3%; margin-top: 2%; margin-bottom: 2%;"><strong>(Moving, shrinking rectangles) </strong>Let \((X_n : n \geq 1)\) be the sequence of random variables on the standard unit-interval probability space, as shown in the below Figure. The variable \(X_1\) is identically one. The variables \(X_2\) and \(X_3\) are one on intervals of length \(\frac{1}{2}\). The variables \(X_4, X_5, X_6\), and \(X_7\) are one on intervals of length \(\frac{1}{4}\). In general, each \(n \geq 1\) can be written as \(n = 2^k + j\) where \(k = \lfloor \log_2 n \rfloor\) and \(0 \leq j < 2^k\). The variable \(X_n\) is one on the length \(2^{-k}\) interval \((j 2^{-k}, (j+1) 2^{-k}]\).</p>
+                    <p style="margin-left: 3%; margin-right: 3%; margin-top: 2%; margin-bottom: 2%;"><strong>(Moving, shrinking rectangles) </strong>Let \((X_n : n \geq 1)\) be the sequence of random variables on the standard unit-interval probability space, as shown in the below Figure. The variable \(X_1\) is identically one. The variables \(X_2\) and \(X_3\) are one on intervals of length \(\frac{1}{2}\). The variables \(X_4, X_5, X_6\), and \(X_7\) are one on intervals of length \(\frac{1}{4}\). In general, each \(n \geq 1\) can be written as \(n = 2^k + j\) where \(k = \lfloor \log_2 n \rfloor\) and \(0 \leq j < 2^k\). The variable \(X_n\) is one on the length \(2^{-k}\) interval \((j 2^{-k}, (j+1) 2^{-k}]\). We want to show that the given sequence does not converge almost surely to the random variable \(X=0\).</p>
                     <div style="text-align: center; margin-bottom: 2%;">
                         <img src="./images/figure2_3.png" alt="Figure 2.3 - Random Variable Intervals" style="max-width: 50%; height: auto;">
                     </div>
@@ -73,21 +73,31 @@
             <div class="column is-8-desktop is-12-tablet is-12-mobile">
                 <div class="box-question">
                     <div class="control-panel">
-
+                        <h3 class="v-datalist-title">Convergence in Probability</h3>
                         <p>
-                            Given the sequence of random variables \(X_n\) defined above, enter the \(\omega\) value to and the block number \(k\) to observe the random variable \(X_n\) in the \(k^{\text{th}}\) block that has the value \(X_n(\omega)=1\). Also observe the non convergence of the sequence \(X_n(\omega)\)
+                            Clearly, the sequence \(X_n(\omega)\) converges to \(X=0\) in probability. This can be verified directly using the definition of convergence in probability. Recall that 
+                            The sequence \(X_n\) converges in probability to \(X=0\) if for every \(\epsilon > 0\), 
+                            <br>
+                            <br>
+                            <p style="text-align: center;">\(\lim_{n\rightarrow \infty} \mathbb{P}(|X_n-X|>0)=0\)</p>
+                            <p style="text-align: center;">or \( \lim_{n\rightarrow \infty} \mathbb{P}(X_n>0)=\lim_{n\rightarrow \infty} \mathbb{P}(X_n=1)=0\)</p>
+                            <br>
+                            Now, \(X_n=1\) occurs with the the probability, \(\frac{1}{2^k}\) where where \(k = \lfloor \log_2 n \rfloor\). As \(n \rightarrow \infty\), this probability goes to 0. Therefore, we can say that the
+                            sequence \(X_n\) converges in probability to \(X=0\). 
                         </p>
                         <br>
-                        
+                        <h3 class="v-datalist-title">Almost sure convergence</h3>
+                        Given the sequence of random variables \(X_n\) defined above, enter the \(\omega\) value to and the block number \(k\) to observe the random variable \(X_n\) in the \(k^{\text{th}}\) block that has the value \(X_n(\omega)=1\). Also observe the non convergence of the sequence \(X_n(\omega)\)
+                        <br><br>
                         <label for="omega">Enter a value of \( \omega \in (0, 1) \):</label>
                         <input type="number" id="omega" step="0.0001" placeholder="e.g. 0.05">
-                        <br><br>
+                        <br>
                         
                         <label for="block">Enter block number \( k \in \mathbb{N^+} \):</label>
                         <input type="number" id="block" min="1" placeholder="e.g. 2">
                         <br><br>
                         
-                        <button onclick="runConvergence()">Check Convergence</button>
+                        <button onclick="runConvergence()">Check Almost Sure Convergence</button>
                         <br><br>
                         
                         <div style="display: flex; justify-content: center; gap: 20px;">

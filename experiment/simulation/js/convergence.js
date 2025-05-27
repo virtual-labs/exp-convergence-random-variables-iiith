@@ -47,7 +47,7 @@ function runConvergence() {
 
     // Display result
     observations.innerHTML = `
-        <b>For ω = ${omega}, in block k = ${k}, X_${foundIndex}(ω) = 1</b><br>
+        <b>For ω = ${omega}, in block k = ${k}, X_${foundIndex}(ω) = 1.</b> Clearly, X_${foundIndex}(ω) does not converge to X=0<br>
     `;
 
     plotRandomVariable(foundIndex, k);
