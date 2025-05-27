@@ -212,7 +212,6 @@ The sample average $\bar{X}_n$ converges in probability to the expected value $\
 
 If $X_i \sim \text{Bernoulli}(0.5)$, then $\bar{X}_n \to 0.5$ in probability.
 
-### Plot Placeholder
 
 ![WLON plot](images/wlln_simulation.png)
 
