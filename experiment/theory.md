@@ -1,6 +1,5 @@
-# Convergence of Random Variables
 
-## Introduction
+### Introduction
 
 In the realm of probability theory and statistical inference, it's common to encounter situations where we aim to estimate an unobservable random variable $X$ through a sequence of approximations. Suppose we cannot observe $X$ directly, but we can perform measurements or experiments to obtain estimates $X_1, X_2, X_3, \ldots$. Each subsequent estimate is derived from additional data or refined methodologies, with the hope that as $n$ increases, $X_n$ provides a more accurate approximation of $X$.
 
@@ -17,9 +16,9 @@ These are all different kinds of convergence. A sequence might converge in one s
 
 ---
 
-## 1. Almost Sure Convergence
+### 1. Almost Sure Convergence
 
-### Definition
+#### Definition
 
 A sequence of random variables $\{X_n\}$ converges **almost surely** to a random variable $X$ if:
 
@@ -32,7 +31,7 @@ $$
 This means that the sequence $X_n$ converges to $X$ for almost every outcome in the sample space.
 Almost sure convergence implies that, with probability 1, the sequence $X_n(\omega)$ approaches $X(\omega)$ as $n \to \infty$. It's akin to saying that the convergence happens for "almost every" individual outcome.
 
-### Example
+#### Example
 
 Consider the sequence:
 
@@ -44,9 +43,9 @@ As $n \to \infty$, $X_n(\omega) \to 1$ for all $\omega \in [0,1]$. Therefore, $X
 
 ---
 
-## 2. Convergence in Probability
+### 2. Convergence in Probability
 
-### Definition
+#### Definition
 
 Convergence in probability means that the probability of $X_n$ deviating from $X$ by more than $\epsilon$ becomes negligible as $n$ grows.
 A sequence $\{X_n\}$ converges **in probability** to $X$ if, for every $\epsilon > 0$:
@@ -57,7 +56,7 @@ $$
 \end{equation}
 $$
 
-### Example
+#### Example
 
 Define:
 
@@ -132,9 +131,9 @@ The most famous example of convergence in probability is the weak law of large n
 
 ---
 
-## 3. Convergence in Distribution
+### 3. Convergence in Distribution
 
-### Definition
+#### Definition
 
 Convergence in distribution focuses on the behavior of the distribution functions. It implies that the distributions of $X_n$ approach the distribution of $X$ as $n \to \infty$.
 Formally, a sequence $\{X_n\}$ converges **in distribution** to $X$ if, for all points $x$ where the cumulative distribution function (CDF) $F_X$ is continuous:
@@ -145,15 +144,15 @@ $$
 \end{equation}
 $$
 
-### Example
+#### Example
 
 Let $X_n \sim \mathcal{N}(0, \frac{1}{n})$. Then $X_n$ converges in distribution to the degenerate random variable at 0, since the variance shrinks to zero.
 
 ---
 
-## 4. Convergence in $L^p$ Norm
+### 4. Convergence in $L^p$ Norm
 
-### Definition
+#### Definition
 One can define convergence bwtween 2 random variables if the *distance* between the distributions $X_n$ and $X$ is decreasing to a small value. If we define distance between $X_n$ and $X$ as $P(|X_n-X|>\epsilon)$ , then we have convergence in probability, if we define distance as $p^{\text{th}}$ norm of $X_n$ and $X$, we obtain convergence in $L^p$ norm.
 
 Formally, convergence in $L^p$ norm (or in the $p^{th}$ mean) implies that the expected $p$-th power of the difference between $X_n$ and $X$ tends to zero. Mathematically, for $p \geq 1$, a sequence $\{X_n\}$ converges in $L^p$ norm to $X$ if:
@@ -164,7 +163,7 @@ $$
 $$
 If $p=2$, it is called the mean-square convergence, and it is shown by $X_n \xrightarrow{m.s.}X$
 
-### Example
+#### Example
 
 Let $X_n = \frac{1}{n}$. Then:
 
@@ -176,7 +175,7 @@ Hence, $X_n \to 0$ in $L^p$ norm.
 
 ---
 
-## 5. Relationships Between Different Types of Convergence
+### 5. Relationships Between Different Types of Convergence
 
 As discussed previously, the different types of convergences are related to each other.
 
@@ -193,8 +192,8 @@ As discussed previously, the different types of convergences are related to each
 
 However, the converses do not generally hold.
 
-## 6. Weak Law of Large Numbers (WLLN)
-### Statement
+### 6. Weak Law of Large Numbers (WLLN)
+#### Statement
 
 Let $X_1, X_2, \ldots$ be i.i.d. random variables with finite mean $\mu$. Then:
 
@@ -204,11 +203,11 @@ $$
 \end{equation}
 $$
 
-### Intuition
+#### Intuition
 
 The sample average $\bar{X}_n$ converges in probability to the expected value $\mu$ as the sample size increases.
 
-### Example
+#### Example
 
 If $X_i \sim \text{Bernoulli}(0.5)$, then $\bar{X}_n \to 0.5$ in probability.
 

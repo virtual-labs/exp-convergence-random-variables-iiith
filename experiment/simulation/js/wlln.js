@@ -6,357 +6,234 @@ document.addEventListener('DOMContentLoaded', function() {
     const sampleSizeValue = document.getElementById('sample-size-value');
     const runBtn = document.getElementById('run-btn');
     const resetBtn = document.getElementById('reset-btn');
-    const theoreticalMean = document.getElementById('theoretical-mean');
-    const currentMean = document.getElementById('current-mean');
-    const absoluteError = document.getElementById('absolute-error');
-    const convergenceRate = document.getElementById('convergence-rate');
     
-    // Chart setup
+    // Observation panel elements
+    const obsContext = document.getElementById('obs-context');
+    const obsRealtime = document.getElementById('obs-realtime');
+    const obsConclusion = document.getElementById('obs-conclusion');
+    const currentMeanSpan = document.getElementById('current-mean');
+    const absoluteErrorSpan = document.getElementById('absolute-error');
+    const conclusionText = document.getElementById('conclusion-text');
+    
+    // Chart and animation state
     const ctx = document.getElementById('convergence-chart').getContext('2d');
     let convergenceChart;
-    
-    // Distribution parameters
+    let animationFrameId = null;
+
     let params = {
-        bernoulli: { p: 0.5 },
-        uniform: { a: 0, b: 1 },
-        normal: { mu: 0, sigma: 1 },
-        exponential: { lambda: 1 }
+        bernoulli: { p: 0.5 }, uniform: { a: 0, b: 1 },
+        normal: { mu: 0, sigma: 1 }, exponential: { lambda: 1 }
     };
-    
-    // Current distribution
     let currentDist = 'bernoulli';
     
-    // Initialize
+    // --- INITIALIZATION ---
     updateParameterControls();
-    updateSampleSizeValue();
     
-    // Event listeners
-    distributionType.addEventListener('change', function() {
-        currentDist = this.value;
-        updateParameterControls();
-    });
-    
-    sampleSizeSlider.addEventListener('input', updateSampleSizeValue);
+    // --- EVENT LISTENERS ---
+    distributionType.addEventListener('change', () => { currentDist = distributionType.value; updateParameterControls(); });
+    sampleSizeSlider.addEventListener('input', () => { sampleSizeValue.textContent = sampleSizeSlider.value; });
     runBtn.addEventListener('click', runExperiment);
     resetBtn.addEventListener('click', resetExperiment);
-    
-    // Functions
-    // function updateParameterControls() {
-    //     let html = '';
-        
-    //     switch(currentDist) {
-    //         case 'bernoulli':
-    //             html = `
-    //                 <div class="field">
-    //                     <label class="label">Probability (p)</label>
-    //                     <input id="bernoulli-p" class="input" type="number" min="0" max="1" step="0.01" value="${params.bernoulli.p}">
-    //                 </div>
-    //             `;
-    //             break;
-    //         case 'uniform':
-    //             html = `
-    //                 <div class="field">
-    //                     <label class="label">Min (a)</label>
-    //                     <input id="uniform-a" class="input" type="number" value="${params.uniform.a}">
-    //                 </div>
-    //                 <div class="field">
-    //                     <label class="label">Max (b)</label>
-    //                     <input id="uniform-b" class="input" type="number" value="${params.uniform.b}">
-    //                 </div>
-    //             `;
-    //             break;
-    //         case 'normal':
-    //             html = `
-    //                 <div class="field">
-    //                     <label class="label">Mean (µ)</label>
-    //                     <input id="normal-mu" class="input" type="number" value="${params.normal.mu}">
-    //                 </div>
-    //                 <div class="field">
-    //                     <label class="label">Std Dev (σ)</label>
-    //                     <input id="normal-sigma" class="input" type="number" min="0" step="0.1" value="${params.normal.sigma}">
-    //                 </div>
-    //             `;
-    //             break;
-    //         case 'exponential':
-    //             html = `
-    //                 <div class="field">
-    //                     <label class="label">Rate (λ)</label>
-    //                     <input id="exponential-lambda" class="input" type="number" min="0.1" step="0.1" value="${params.exponential.lambda}">
-    //                 </div>
-    //             `;
-    //             break;
-    //     }
-        
-    //     parameterControls.innerHTML = html;
-    //     updateTheoreticalMean();
-    // }
+    parameterControls.addEventListener('input', (e) => { if (e.target.tagName === 'INPUT') updateTheoreticalMean(); });
 
+    // --- CORE FUNCTIONS ---
     function updateParameterControls() {
         let html = '';
-        
         switch(currentDist) {
-            case 'bernoulli':
-                html = `
-                    <div class="field is-horizontal">
-                        <div class="field-body">
-                            <div class="field">
-                                <label class="label">Probability (p)</label>
-                                <div class="control">
-                                    <input id="bernoulli-p" class="input" type="number" min="0" max="1" step="0.01" value="${params.bernoulli.p}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                break;
-            case 'uniform':
-                html = `
-                    <div class="field is-horizontal">
-                        <div class="field-body">
-                            <div class="field">
-                                <label class="label">Min (a)</label>
-                                <div class="control">
-                                    <input id="uniform-a" class="input" type="number" value="${params.uniform.a}">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Max (b)</label>
-                                <div class="control">
-                                    <input id="uniform-b" class="input" type="number" value="${params.uniform.b}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                break;
-            case 'normal':
-                html = `
-                    <div class="field is-horizontal">
-                        <div class="field-body">
-                            <div class="field">
-                                <label class="label">Mean (µ)</label>
-                                <div class="control">
-                                    <input id="normal-mu" class="input" type="number" value="${params.normal.mu}">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Std Dev (σ)</label>
-                                <div class="control">
-                                    <input id="normal-sigma" class="input" type="number" min="0" step="0.1" value="${params.normal.sigma}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                break;
-            case 'exponential':
-                html = `
-                    <div class="field is-horizontal">
-                        <div class="field-body">
-                            <div class="field">
-                                <label class="label">Rate (λ)</label>
-                                <div class="control">
-                                    <input id="exponential-lambda" class="input" type="number" min="0.1" step="0.1" value="${params.exponential.lambda}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                break;
+            case 'bernoulli': html = `<div class="param-item"><label>p:</label><input id="bernoulli-p" type="number" min="0" max="1" step="0.01" value="${params.bernoulli.p}"></div>`; break;
+            case 'uniform': html = `<div class="param-item"><label>a:</label><input id="uniform-a" type="number" value="${params.uniform.a}"></div><div class="param-item"><label>b:</label><input id="uniform-b" type="number" value="${params.uniform.b}"></div>`; break;
+            case 'normal': html = `<div class="param-item"><label>µ:</label><input id="normal-mu" type="number" value="${params.normal.mu}"></div><div class="param-item"><label>σ:</label><input id="normal-sigma" type="number" min="0" step="0.1" value="${params.normal.sigma}"></div>`; break;
+            case 'exponential': html = `<div class="param-item"><label>λ:</label><input id="exponential-lambda" type="number" min="0.1" step="0.1" value="${params.exponential.lambda}"></div>`; break;
         }
-        
         parameterControls.innerHTML = html;
         updateTheoreticalMean();
     }
-
-    function updateSampleSizeValue() {
-        sampleSizeValue.textContent = sampleSizeSlider.value;
+    
+    function getTheoreticalMean() {
+        const distParams = getDistParams();
+        switch(currentDist) {
+            case 'bernoulli': return distParams.p;
+            case 'uniform': return (distParams.a + distParams.b) / 2;
+            case 'normal': return distParams.mu;
+            case 'exponential': return 1 / distParams.lambda;
+        }
     }
     
     function updateTheoreticalMean() {
-        let mean;
-        
-        switch(currentDist) {
-            case 'bernoulli':
-                mean = document.getElementById('bernoulli-p')?.value || params.bernoulli.p;
-                break;
-            case 'uniform':
-                const a = document.getElementById('uniform-a')?.value || params.uniform.a;
-                const b = document.getElementById('uniform-b')?.value || params.uniform.b;
-                mean = (parseFloat(a) + parseFloat(b)) / 2;
-                break;
-            case 'normal':
-                mean = document.getElementById('normal-mu')?.value || params.normal.mu;
-                break;
-            case 'exponential':
-                const lambda = document.getElementById('exponential-lambda')?.value || params.exponential.lambda;
-                mean = 1 / parseFloat(lambda);
-                break;
+        const mean = getTheoreticalMean();
+        const theoreticalMeanSpan = document.querySelector('#obs-context #theoretical-mean');
+        if (theoreticalMeanSpan) {
+            theoreticalMeanSpan.textContent = mean.toFixed(4);
         }
-        
-        theoreticalMean.textContent = parseFloat(mean).toFixed(4);
     }
-    
+
     function runExperiment() {
-        // Get parameters
-        let distParams = {};
-        let sampleMean = 0;
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        
+        runBtn.disabled = true;
+        resetBtn.disabled = true;
+
+        const trueMean = getTheoreticalMean();
         const maxSamples = parseInt(sampleSizeSlider.value);
-        const step = Math.max(1, Math.floor(maxSamples / 200)); // Number of points to plot
-        const means = [];
-        const sampleCounts = [];
+        const distParams = getDistParams();
         
-        // Update theoretical mean
-        updateTheoreticalMean();
-        const trueMean = parseFloat(theoreticalMean.textContent);
-        
-        // Generate random variables based on distribution
-        switch(currentDist) {
-            case 'bernoulli':
-                distParams.p = parseFloat(document.getElementById('bernoulli-p').value);
-                break;
-            case 'uniform':
-                distParams.a = parseFloat(document.getElementById('uniform-a').value);
-                distParams.b = parseFloat(document.getElementById('uniform-b').value);
-                break;
-            case 'normal':
-                distParams.mu = parseFloat(document.getElementById('normal-mu').value);
-                distParams.sigma = parseFloat(document.getElementById('normal-sigma').value);
-                break;
-            case 'exponential':
-                distParams.lambda = parseFloat(document.getElementById('exponential-lambda').value);
-                break;
-        }
-        
-        // Generate samples and compute running mean
+        obsContext.innerHTML = `
+            <h4>Experiment Setup</h4>
+            <p><strong>Distribution:</strong> <span class="result-highlight">${currentDist.charAt(0).toUpperCase() + currentDist.slice(1)}</span></p>
+            <p><strong>Theoretical Mean (µ):</strong> <span id="theoretical-mean" class="result-highlight">${trueMean.toFixed(4)}</span></p>
+        `;
+        obsRealtime.style.display = 'block';
+        obsConclusion.style.display = 'none';
+
+        const { yMin, yMax } = getFixedYAxisRange(currentDist, distParams, trueMean);
+
         let sum = 0;
-        for (let n = 1; n <= maxSamples; n++) {
-            const x = generateRandomVariable(currentDist, distParams);
-            sum += x;
-            
-            if (n % step === 0 || n === maxSamples) {
-                means.push(sum / n);
-                sampleCounts.push(n);
-                
-                // Update display for the last point
-                if (n === maxSamples) {
-                    currentMean.textContent = (sum / n).toFixed(4);
-                    absoluteError.textContent = Math.abs(sum / n - trueMean).toFixed(4);
+        let n = 0;
+        const animationDuration = 5000;
+        let startTime = null;
+
+        if (convergenceChart) convergenceChart.destroy();
+        convergenceChart = createChart(trueMean, yMin, yMax);
+
+        function animationStep(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / animationDuration, 1);
+            const targetN = Math.floor(progress * maxSamples);
+
+            if (targetN > n) {
+                for (let i = n + 1; i <= targetN; i++) {
+                    sum += generateRandomVariable(currentDist, distParams);
                 }
+                n = targetN;
+
+                if (n > 0) {
+                    const sampleMean = sum / n;
+                    convergenceChart.data.labels.push(n);
+                    convergenceChart.data.datasets[0].data.push(sampleMean);
+                    convergenceChart.data.datasets[1].data.push(trueMean);
+                    currentMeanSpan.textContent = sampleMean.toFixed(4);
+                    absoluteErrorSpan.textContent = Math.abs(sampleMean - trueMean).toFixed(4);
+                }
+            }
+            convergenceChart.update('none');
+
+            if (progress < 1) {
+                animationFrameId = requestAnimationFrame(animationStep);
+            } else {
+                // --- DYNAMIC CONCLUSION LOGIC ---
+                const finalMean = sum / maxSamples;
+                const finalError = Math.abs(finalMean - trueMean);
+                let conclusionString = '';
+
+                // Use relative error, but fall back to absolute error if mean is close to zero
+                const relativeError = trueMean !== 0 ? finalError / Math.abs(trueMean) : Infinity;
+                const isErrorSmall = trueMean !== 0 ? relativeError < 0.05 : finalError < 0.05;
+
+                if (maxSamples > 500 && isErrorSmall) {
+                    conclusionString = `With a large number of samples (n=${maxSamples}), the final sample mean (${finalMean.toFixed(4)}) is extremely close to the theoretical mean. The small final error visually confirms the WLLN: the sample average reliably converges as n increases.`;
+                } else if (maxSamples <= 500 && isErrorSmall) {
+                    conclusionString = `Even with a relatively small number of samples (n=${maxSamples}), the sample mean (${finalMean.toFixed(4)}) landed close to the theoretical mean. While this is consistent with the WLLN, try running the experiment with a larger n to see a more reliable convergence.`;
+                } else if (maxSamples > 500 && !isErrorSmall) {
+                    conclusionString = `With a large n=${maxSamples} samples, the sample mean (${finalMean.toFixed(4)}) is still somewhat far from the theoretical mean. This demonstrates that convergence can be slow, especially for high-variance distributions. The WLLN guarantees convergence as n approaches infinity.`;
+                } else { // maxSamples <= 500 && !isErrorSmall
+                    conclusionString = `With a small number of samples (n=${maxSamples}), the sample mean (${finalMean.toFixed(4)}) has not yet converged. The relatively large error is expected for small n. Increase the number of samples to see the WLLN in effect.`;
+                }
+
+                conclusionText.textContent = conclusionString;
+                obsConclusion.style.display = 'block';
+                runBtn.disabled = false;
+                resetBtn.disabled = false;
             }
         }
         
-        // Calculate convergence rate (approximate)
-        // const lastQuarter = Math.floor(means.length * 0.75);
-        // if (lastQuarter > 10) {
-        //     const rates = [];
-        //     for (let i = lastQuarter; i < means.length - 1; i++) {
-        //         rates.push(Math.abs(means[i+1] - trueMean) / Math.abs(means[i] - trueMean));
-        //     }
-        //     const avgRate = rates.reduce((a, b) => a + b, 0) / rates.length;
-        //     convergenceRate.textContent = avgRate.toFixed(4);
-        // } else {
-        //     convergenceRate.textContent = "N/A";
-        // }
-        
-        // Create or update chart
-        if (convergenceChart) {
-            convergenceChart.data.labels = sampleCounts;
-            convergenceChart.data.datasets[0].data = means;
-            convergenceChart.data.datasets[1].data = Array(sampleCounts.length).fill(trueMean);
-            convergenceChart.update();
-        } else {
-            convergenceChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: sampleCounts,
-                    datasets: [
-                        {
-                            label: 'Sample Mean',
-                            data: means,
-                            borderColor: 'rgb(75, 192, 192)',
-                            tension: 0.1,
-                            pointRadius: 0
-                        },
-                        {
-                            label: 'Theoretical Mean (µ)',
-                            data: Array(sampleCounts.length).fill(trueMean),
-                            borderColor: 'rgb(255, 99, 132)',
-                            borderWidth: 1,
-                            pointRadius: 0
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Number of Samples (n)'
-                            },
-                            type: 'linear'
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Sample Mean'
-                            }
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Convergence of Sample Mean to Theoretical Mean'
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.dataset.label}: ${context.parsed.y.toFixed(4)}`;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
+        animationFrameId = requestAnimationFrame(animationStep);
     }
     
+    function getFixedYAxisRange(dist, params, mean) {
+        let stdDev, range, yMin, yMax;
+        switch(dist) {
+            case 'bernoulli': return { yMin: -0.1, yMax: 1.1 };
+            case 'uniform':
+                range = Math.abs(params.b - params.a);
+                return { yMin: params.a - 0.1 * range, yMax: params.b + 0.1 * range };
+            case 'normal':
+                stdDev = params.sigma;
+                yMin = mean - 4 * stdDev;
+                yMax = mean + 4 * stdDev;
+                return { yMin, yMax };
+            case 'exponential':
+                stdDev = 1 / params.lambda; // Same as mean
+                yMin = -0.1 * (mean + 4 * stdDev);
+                yMax = mean + 4 * stdDev;
+                return { yMin, yMax };
+            default: return {};
+        }
+    }
+
     function resetExperiment() {
-        if (convergenceChart) {
-            convergenceChart.destroy();
-            convergenceChart = null;
-        }
-        currentMean.textContent = '-';
-        absoluteError.textContent = '-';
-        convergenceRate.textContent = '-';
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        if (convergenceChart) convergenceChart.destroy();
+        animationFrameId = null;
+        convergenceChart = null;
+        
+        obsContext.innerHTML = `<p class="placeholder">Configure your experiment and click "Run" to see the analysis.</p>`;
+        obsRealtime.style.display = 'none';
+        obsConclusion.style.display = 'none';
+        currentMeanSpan.textContent = '-';
+        absoluteErrorSpan.textContent = '-';
+        runBtn.disabled = false;
     }
     
+    function createChart(trueMean, yMin, yMax) {
+        return new Chart(ctx, {
+            type: 'line',
+            data: { labels: [], datasets: [
+                {
+                    label: 'Sample Mean', data: [], borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.1)', borderWidth: 2.5,
+                    tension: 0.1, pointRadius: 0
+                },
+                {
+                    label: 'Theoretical Mean (µ)', data: [], borderColor: 'rgb(255, 159, 64)',
+                    borderWidth: 2.5, pointRadius: 0, borderDash: [6, 6]
+                }
+            ]},
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: 'Number of Samples (n)' }, type: 'linear', beginAtZero: true },
+                    y: { title: { display: true, text: 'Sample Mean' }, min: yMin, max: yMax }
+                },
+                plugins: {
+                    title: { display: true, text: 'Convergence of Sample Mean' },
+                    tooltip: { enabled: false }
+                },
+                animation: false
+            }
+        });
+    }
+
+    function getDistParams() {
+        const p = {};
+        switch(currentDist) {
+            case 'bernoulli': p.p = parseFloat(document.getElementById('bernoulli-p').value); break;
+            case 'uniform': p.a = parseFloat(document.getElementById('uniform-a').value); p.b = parseFloat(document.getElementById('uniform-b').value); break;
+            case 'normal': p.mu = parseFloat(document.getElementById('normal-mu').value); p.sigma = parseFloat(document.getElementById('normal-sigma').value); break;
+            case 'exponential': p.lambda = parseFloat(document.getElementById('exponential-lambda').value); break;
+        }
+        return p;
+    }
+
     function generateRandomVariable(dist, params) {
         switch(dist) {
-            case 'bernoulli':
-                return Math.random() < params.p ? 1 : 0;
-            case 'uniform':
-                return params.a + Math.random() * (params.b - params.a);
+            case 'bernoulli': return Math.random() < params.p ? 1 : 0;
+            case 'uniform': return params.a + Math.random() * (params.b - params.a);
             case 'normal':
-                // Box-Muller transform
-                let u = 0, v = 0;
-                while(u === 0) u = Math.random();
-                while(v === 0) v = Math.random();
-                const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-                return params.mu + z * params.sigma;
-            case 'exponential':
-                return -Math.log(1 - Math.random()) / params.lambda;
-            default:
-                return 0;
+                let u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random();
+                return params.mu + Math.sqrt(-2.0*Math.log(u))*Math.cos(2.0*Math.PI*v)*params.sigma;
+            case 'exponential': return -Math.log(1 - Math.random()) / params.lambda;
+            default: return 0;
         }
     }
-    
-    // Update theoretical mean when parameters change
-    parameterControls.addEventListener('input', function(e) {
-        if (e.target.tagName === 'INPUT') {
-            updateTheoreticalMean();
-        }
-    });
 });

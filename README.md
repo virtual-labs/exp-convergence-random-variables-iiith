@@ -1,24 +1,31 @@
 ## Introduction
 
-
-<b>Discipline | <b>Fill your discipline name here
+<b>Discipline | <b> Mathematics
 :--|:--|
-<b> Lab | <b> Fill your lab name here
-<b> Experiment|     <b> Fill your experiment name and number here
+<b> Lab | <b> Probability and Random Variables 
+<b> Experiment|     <b> Convergence of Random Variables
 
-### About the Experiment 
+### About the Experiment
 
-Fill a brief description of this experiment here
+Convergence of Random Variables
 
-<b>Name of Developer | <b> Fill the name of experiment owner here 
+<b>Name of Developer | <b> Srikar Kale
 :--|:--|
-<b> Institute | <b>  
-<b> Email id|     <b>  
-<b> Department |  
+<b> Institute | <b>  IIIT Hyderabad
+<b> Email id|     <b>  srikar.kale@research.iiit.ac.in
+<b> Department |  CSE
+:--
+<b>Name of Developer | <b> Keshav Agarwal
+:--|:--|
+<b> Institute | <b>  IIIT Hyderabad
+<b> Email id|     <b>  keshav.agarwal@students.iiit.ac.in
+<b> Department |  ECE
 
 ### Contributors List
 
 SrNo | Name | Faculty or Student | Department| Institute | Email id
 :--|:--|:--|:--|:--|:--|
-1 | . | . | . | . | .
-2 | . | . | . | . | .
+1 | Gowtham Raghunath Kurri | Faculty | SPCRC | IIIT Hyderabad | gowtham.kurri@iiit.ac.in
+2 | Lalitha Vadlamani | Faculty | SPCRC| IIIT Hyderabad | lalitha.v@iiit.ac.in  
+3 | Srikar Kale | Student | SPCRC| IIIT Hyderabad | srikar.kale@research.iiit.ac.in
+4 | Keshav Agarwal | Student | SPCRC| IIIT Hyderabad |  keshav.agarwal@students.iiit.ac.in
