@@ -18,8 +18,8 @@
     {
       "question": "Which of the following best defines convergence in probability?",
       "answers": {
-        "a": "$\\mathbb{P}(X_n = X) \to 1$",
-        "b": "$\\mathbb{P}(|X_n - X| > \\epsilon) \to 0$ for every $\\epsilon > 0$",
+        "a": "$\\mathbb{P}(X_n = X) \\to 1$",
+        "b": "$\\mathbb{P}(|X_n - X| > \\epsilon) \\to 0$ for every $\\epsilon > 0$",
         "c": "$\\mathbb{E}[|X_n - X|^p] \\to 0$",
         "d": "The CDF of $X_n$ converges pointwise to the CDF of $X$"
       },
@@ -30,7 +30,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "Which type of convergence is **strongest** among the following?",
+      "question": "Which type of convergence is <b>strongest</b> among the following?",
       "answers": {
         "a": "Convergence in distribution",
         "b": "Convergence in probability",

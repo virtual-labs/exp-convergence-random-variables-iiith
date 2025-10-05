@@ -9,3 +9,4 @@
 | :---: | :---: | :---: | :---: |
 | 1 | Penukonda Naga Chandana | penukonda.chandana@students.iiit.ac.in | IIIT Hyderabad |
 | 2 | Tejas Srivastava | tejas.srivastava@students.iiit.ac.in | IIIT Hyderabad |
+| 3 | Harsh Kapoor | harsh.kapoor@research.iiit.ac.in | IIIT Hyderabad |

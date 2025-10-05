@@ -1,4 +1,3 @@
-
 ### Introduction
 
 In the realm of probability theory and statistical inference, it's common to encounter situations where we aim to estimate an unobservable random variable $X$ through a sequence of approximations. Suppose we cannot observe $X$ directly, but we can perform measurements or experiments to obtain estimates $X_1, X_2, X_3, \ldots$. Each subsequent estimate is derived from additional data or refined methodologies, with the hope that as $n$ increases, $X_n$ provides a more accurate approximation of $X$.
@@ -74,8 +73,8 @@ $$
 \mathbb{P}(|X_n - 0| > \epsilon) = \frac{1}{n} \to 0 \quad \text{as } n \to \infty
 $$
 
-As mentioned previously, **convergence in probability is stronger than convergence in distribution**. That is, if 
-$X_n \xrightarrow{p} X$, then $X_n \xrightarrow{d} X$. The converse is not necessarily true. 
+As mentioned previously, **convergence in probability is stronger than convergence in distribution**. That is, if
+$X_n \xrightarrow{p} X$, then $X_n \xrightarrow{d} X$. The converse is not necessarily true.
 
 For example, let $X_1, X_2, X_3, \dots$ be a sequence of i.i.d. **Bernoulli** $\left(\frac{1}{2}\right)$ random variables. Let also $X \sim \text{Bernoulli} \left( \frac{1}{2} \right)$ be independent from the $X_i$'s. Then, $X_n \xrightarrow{d} X$. However, $X_n$ does not converge in probability to $X$, since $|X_n - X|$ is in fact also a **Bernoulli** $\left( \frac{1}{2} \right)$ random variable, and
 
@@ -89,45 +88,11 @@ A special case in which the **converse is true** is when $X_n \xrightarrow{d} c$
 
 ---
 
-#### Theorem  
+#### Theorem
+
 If $X_n \xrightarrow{d} c$, where $c$ is a constant, then $X_n \xrightarrow{p} c$.
- 
-**Proof**  
- 
-Since $X_n \xrightarrow{d} c$, we conclude that for any $\epsilon 0$, we have:
-$$
-\lim_{n \to \infty} F_{X_n}(c - \epsilon) = 0,
-$$
-$$
-\lim_{n \to \infty} F_{X_n}\left(c + \frac{\epsilon}{2}\right) = 1.
-$$
 
-We can write, for any $\epsilon > 0$,
-
-$$
-\begin{aligned}
-\lim_{n \to \infty} P(|X_n - c| \geq \epsilon) &= \lim_{n \to \infty} \left[ P(X_n \leq c - \epsilon) + P(X_n \geq c + \epsilon) \right] \\
-&= \lim_{n \to \infty} P(X_n \leq c - \epsilon) + \lim_{n \to \infty} P(X_n \geq c + \epsilon) \\
-&= \lim_{n \to \infty} F_{X_n}(c - \epsilon) + \lim_{n \to \infty} P(X_n \geq c + \epsilon) \\
-&= 0 + \lim_{n \to \infty} P(X_n \geq c + \epsilon).
-\end{aligned}
-$$
-
-Now, observe that:
-$$
-\lim_{n \to \infty} P(X_n \geq c + \epsilon) \leq \lim_{n \to \infty} P\left(X_n > c + \frac{\epsilon}{2}\right) \\
-= 1 - \lim_{n \to \infty} F_{X_n}\left(c + \frac{\epsilon}{2}\right) = 0.
-$$
-
-Hence,
-$$
-\lim_{n \to \infty} P(|X_n - c| \geq \epsilon) = 0, \quad \text{for all } \epsilon > 0,
-$$
-which means
-$$
-X_n \xrightarrow{p} c.
-$$
-The most famous example of convergence in probability is the weak law of large numbers (WLLN).
+An example of convergence in probability is the weak law of large numbers (WLLN).
 
 ---
 
@@ -146,21 +111,26 @@ $$
 
 #### Example
 
-Let $X_n \sim \mathcal{N}(0, \frac{1}{n})$. Then $X_n$ converges in distribution to the degenerate random variable at 0, since the variance shrinks to zero.
+Let $X_2, X_3, X_4, \dots$ be a sequence of random variables with the cumulative distribution function:
+$$ F_{X_n}(x) = \begin{cases} 1 - (1 - \frac{1}{n})^{nx} & x > 0 \\ 0 & \text{otherwise} \end{cases} $$
+Then $X_n$ converges in distribution to $\text{Exponential}(\lambda = 1)$.
 
 ---
 
 ### 4. Convergence in $L^p$ Norm
 
 #### Definition
+
 One can define convergence bwtween 2 random variables if the *distance* between the distributions $X_n$ and $X$ is decreasing to a small value. If we define distance between $X_n$ and $X$ as $P(|X_n-X|>\epsilon)$ , then we have convergence in probability, if we define distance as $p^{\text{th}}$ norm of $X_n$ and $X$, we obtain convergence in $L^p$ norm.
 
 Formally, convergence in $L^p$ norm (or in the $p^{th}$ mean) implies that the expected $p$-th power of the difference between $X_n$ and $X$ tends to zero. Mathematically, for $p \geq 1$, a sequence $\{X_n\}$ converges in $L^p$ norm to $X$ if:
+
 $$
 \begin{equation}
 \lim_{n \to \infty} \mathbb{E}[|X_n - X|^p] = 0
 \end{equation}
 $$
+
 If $p=2$, it is called the mean-square convergence, and it is shown by $X_n \xrightarrow{m.s.}X$
 
 #### Example
@@ -180,19 +150,19 @@ Hence, $X_n \to 0$ in $L^p$ norm.
 As discussed previously, the different types of convergences are related to each other.
 
 - **Almost Sure Convergence** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
+- **Convergence in $L^p$ Norm** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
 
-- **Convergence in $L^p$ Norm** $\Rightarrow$ **Convergence in Probability**
-
-| Type of Convergence      | Notation                    | Implies                       |
-|--------------------------|-----------------------------|-------------------------------|
-| Almost Sure              | $X_n \xrightarrow{a.s.} X$  | Convergence in Probability    |
-| In Probability           | $X_n \xrightarrow{P} X$     | Convergence in Distribution   |
-| In Distribution          | $X_n \xrightarrow{d} X$     | —                             |
-| In $L^p$ Norm            | $X_n \xrightarrow{L^p} X$   | Convergence in Probability    |
+| Type of Convergence | Notation                     | Implies                     |
+| ------------------- | ---------------------------- | --------------------------- |
+| Almost Sure         | $X_n \xrightarrow{a.s.} X$   | Convergence in Probability  |
+| In $L^p$ Norm       | $X_n \xrightarrow{L^p} X$    | Convergence in Probability  |
+| In Probability      | $X_n \xrightarrow{P} X$      | Convergence in Distribution |
+| In Distribution     | $X_n \xrightarrow{d} X$      | —                          |
 
 However, the converses do not generally hold.
 
 ### 6. Weak Law of Large Numbers (WLLN)
+
 #### Statement
 
 Let $X_1, X_2, \ldots$ be i.i.d. random variables with finite mean $\mu$. Then:
@@ -210,7 +180,6 @@ The sample average $\bar{X}_n$ converges in probability to the expected value $\
 #### Example
 
 If $X_i \sim \text{Bernoulli}(0.5)$, then $\bar{X}_n \to 0.5$ in probability.
-
 
 ![WLON plot](images/wlln_simulation.png)
 

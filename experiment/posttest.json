@@ -60,9 +60,9 @@
     {
       "question": "Which of the following sequences converges in probability to $0$?",
       "answers": {
-        "a": "$X_n = 1$ with probability 1/n, 0 otherwise",
-        "b": "$X_n = 1$ if n is even, 0 if n is odd",
-        "c": "$X_n \\sim$  Uniform(0, 1/n)",
+        "a": "$X_n = 1$ with probability $1/n$, $0$ otherwise",
+        "b": "$X_n = 1$ if n is even, $0$ if n is odd",
+        "c": "$X_n \\sim$  $Uniform(0, 1/n)$",
         "d": "Both a and c"
       },
       "explanations": {

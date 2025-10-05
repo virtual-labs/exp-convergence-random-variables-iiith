@@ -42,7 +42,7 @@ function runConvergence() {
         
         <div class="theory-box">
             <h5>Why is the answer always "does not converge"?</h5>
-            <p>This experiment is a famous counterexample designed to show that a sequence can <strong>converge in probability</strong> (which this one does) without satisfying the stricter condition of <strong>almost sure convergence</strong>.</p>
+            <p>This experiment is a counterexample designed to show that a sequence can <strong>converge in probability</strong> (which this one does) without satisfying the stricter condition of <strong>almost sure convergence</strong>.</p>
             
         </div>
     `;
