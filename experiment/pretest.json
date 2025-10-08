@@ -2,9 +2,9 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "Which of the following implies convergence in distribution?",
+      "question": "1: Which of the following implies convergence in distribution?",
       "answers": {
-        "a": "Convergence in expectation",
+        "a": "Convergence in mean square",
         "b": "Convergence in probability",
         "c": "Convergence in variance",
         "d": "Convergence almost surely"
@@ -16,7 +16,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Which of the following best defines convergence in probability?",
+      "question": "2: Which of the following best defines convergence in probability?",
       "answers": {
         "a": "$\\mathbb{P}(X_n = X) \\to 1$",
         "b": "$\\mathbb{P}(|X_n - X| > \\epsilon) \\to 0$ for every $\\epsilon > 0$",
@@ -30,12 +30,12 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "Which type of convergence is <b>strongest</b> among the following?",
+      "question": "3: Which type of convergence is <b>strongest</b> among the following?",
       "answers": {
         "a": "Convergence in distribution",
         "b": "Convergence in probability",
-        "c": "Convergence almost surely",
-        "d": "Convergence in $L^2$"
+        "c": "Convergence almost sure",
+        "d": "Convergence in Mean Square"
       },
       "explanations": {
         "c": "The strongest standard form is almost sure convergence. It implies convergence in probability, which in turn implies convergence in distribution."
@@ -44,24 +44,24 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Let $F_{X_n}(x) = \\begin{cases} 1 - \\left(1 - \\frac{1}{n}\\right)^{nx}, & x > 0 \\\\ 0, & x \\leq 0 \\end{cases}$. What does $X_n$ converge to in distribution?",
+      "question": "4: Let $F_{X_n}(x) = \\begin{cases} 1 - \\left(1 - \\frac{1}{n}\\right)^{nx}, & x > 0 \\ 0, & x \\leq 0 \\end{cases}$. What does $X_n$ converge in distribution to?",
       "answers": {
-        "a": "Uniform(0,1)",
-        "b": "Normal(0,1)",
-        "c": "Exponential(1)",
-        "d": "Poisson(1)"
+        "a": "U(0,1)",
+        "b": "N(0,1)",
+        "c": "Exp(1)",
+        "d": "Pois(1)"
       },
       "explanations": {
-        "a": "This is incorrect. The given CDF does not match the form of a Uniform distribution.",
-        "b": "Incorrect. The limit does not yield the CDF of a Normal distribution.",
-        "c": "Correct. As $n \\to \\infty$, $\\left(1 - \\frac{1}{n}\\right)^{nx} \\to e^{-x}$, so $F_{X_n}(x) \\to 1 - e^{-x}$, which is the CDF of an Exponential(1) distribution.",
-        "d": "Incorrect. This is not the form of a Poisson distribution CDF."
+        "a": "Uniform distribution U(0,1): continuous on (0,1) with density f(x)=1. Mean = 1/2, variance = 1/12, so standard deviation = sqrt(1/12) ≈ 0.289.",
+        "b": "Normal distribution N(0,1): the standard Gaussian with mean = 0 and standard deviation = 1 (variance = 1). The limit CDF here is not Gaussian.",
+        "c": "Correct. As $n \\to \\infty$, \\left(1 - \\frac{1}{n}\\right)^{nx} \\to e^{-x}$ for $x>0$, so $F_{X_n}(x) \\to 1 - e^{-x}$, the CDF of an exponential distribution with rate 1 (Exp(1)). For Exp(1): mean = 1, variance = 1, standard deviation = 1.",
+        "d": "Poisson distribution Pois(1): discrete with mean = 1 and variance = 1 (standard deviation = 1). The given limit is continuous, so it is not a Poisson law."
       },
       "correctAnswer": "c",
       "difficulty": "advanced"
     },   
     {
-      "question": "What does convergence almost surely mean, informally?",
+      "question": "5: What does convergence almost surely mean?",
       "answers": {
         "a": "The probability that $X_n = X$ eventually is 1",
         "b": "The average error $|X_n - X|$ goes to zero",

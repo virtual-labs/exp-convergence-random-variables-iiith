@@ -7,7 +7,7 @@ This leads us to the concept of **convergence**: we are interested in understand
 1. **Almost Sure Convergence**: $X_n$ converges to $X$ with probability 1.
 2. **Convergence in Probability**: For any $\epsilon > 0$, the probability that $|X_n - X| > \epsilon$ approaches zero as $n \to \infty$.
 3. **Convergence in Distribution**: The distribution functions of $X_n$ converge to the distribution function of $X$ at all continuity points.
-4. **Convergence in $L^p$ Norm**: The expected value of $|X_n - X|^p$ approaches zero as $n \to \infty$.
+4. **Mean Square Convergence**: The expected value of $|X_n - X|^2$ approaches zero as $n \to \infty$.
 
 These are all different kinds of convergence. A sequence might converge in one sense but not another. Some of these convergence types are ''stronger'' than others and some are ''weaker.'' By this, we mean the following: If Type A convergence is stronger than Type B convergence, it means that Type A convergence implies Type B convergence. The below figure summarizes how these types of convergence are related. In this figure, the stronger types of convergence are on top and, as we move to the bottom, the convergence becomes weaker. For example, using the figure, we conclude that if a sequence of random variables converges in probability to a random variable $X$, then the sequence converges in distribution to $X$ as well.
 
@@ -112,36 +112,24 @@ $$
 #### Example
 
 Let $X_2, X_3, X_4, \dots$ be a sequence of random variables with the cumulative distribution function:
-$$ F_{X_n}(x) = \begin{cases} 1 - (1 - \frac{1}{n})^{nx} & x > 0 \\ 0 & \text{otherwise} \end{cases} $$
+
+$$
+F_{X_n}(x) = \begin{cases} 1 - (1 - \frac{1}{n})^{nx} & x > 0 \\ 0 & \text{otherwise} \end{cases}
+$$
+
 Then $X_n$ converges in distribution to $\text{Exponential}(\lambda = 1)$.
 
 ---
 
-### 4. Convergence in $L^p$ Norm
+### 4. Mean-Square Convergence
 
-#### Definition
-
-One can define convergence bwtween 2 random variables if the *distance* between the distributions $X_n$ and $X$ is decreasing to a small value. If we define distance between $X_n$ and $X$ as $P(|X_n-X|>\epsilon)$ , then we have convergence in probability, if we define distance as $p^{\text{th}}$ norm of $X_n$ and $X$, we obtain convergence in $L^p$ norm.
-
-Formally, convergence in $L^p$ norm (or in the $p^{th}$ mean) implies that the expected $p$-th power of the difference between $X_n$ and $X$ tends to zero. Mathematically, for $p \geq 1$, a sequence $\{X_n\}$ converges in $L^p$ norm to $X$ if:
+A sequence of random variables $X_1,X_2,\dots,X_n,\dots$ converges to a random variable $X$ in mean square (m.s.) if
 
 $$
-\begin{equation}
-\lim_{n \to \infty} \mathbb{E}[|X_n - X|^p] = 0
-\end{equation}
+\lim_{n\to\infty} \mathbb{E}\big[(X_n - X)^2\big] = 0.
 $$
 
-If $p=2$, it is called the mean-square convergence, and it is shown by $X_n \xrightarrow{m.s.}X$
-
-#### Example
-
-Let $X_n = \frac{1}{n}$. Then:
-
-$$
-\mathbb{E}[|X_n - 0|^p] = \left( \frac{1}{n} \right)^p \to 0 \quad \text{as } n \to \infty
-$$
-
-Hence, $X_n \to 0$ in $L^p$ norm.
+We often write this as $X_n \xrightarrow{m.s.} X$.
 
 ---
 
@@ -154,10 +142,10 @@ As discussed previously, the different types of convergences are related to each
 
 | Type of Convergence | Notation                     | Implies                     |
 | ------------------- | ---------------------------- | --------------------------- |
-| Almost Sure         | $X_n \xrightarrow{a.s.} X$   | Convergence in Probability  |
-| In $L^p$ Norm       | $X_n \xrightarrow{L^p} X$    | Convergence in Probability  |
-| In Probability      | $X_n \xrightarrow{P} X$      | Convergence in Distribution |
-| In Distribution     | $X_n \xrightarrow{d} X$      | —                          |
+| Almost Sure         | $X_n \xrightarrow{a.s.} X$ | Convergence in Probability  |
+| In Mean Square      | $X_n \xrightarrow{m.s.} X$  | Convergence in Probability  |
+| In Probability      | $X_n \xrightarrow{P} X$    | Convergence in Distribution |
+| In Distribution     | $X_n \xrightarrow{d} X$    | —                          |
 
 However, the converses do not generally hold.
 

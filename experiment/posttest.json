@@ -2,7 +2,7 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "Which of the following is a necessary condition for the Weak Law of Large Numbers to hold?",
+      "question": "1: Which of the following is a necessary condition for the Weak Law of Large Numbers to hold?",
       "answers": {
         "a": "Random variables must be bounded",
         "b": "Random variables must have finite variance",
@@ -16,7 +16,7 @@
       "difficulty": "moderate"
     },
     {
-      "question": "Which type of convergence does the Weak Law of Large Numbers (WLLN) guarantee?",
+      "question": "2: Which type of convergence does the Weak Law of Large Numbers (WLLN) guarantee?",
       "answers": {
         "a": "Convergence in distribution",
         "b": "Convergence almost surely",
@@ -30,7 +30,7 @@
       "difficulty": "moderate"
     },
     {
-      "question": "In the experiment with shrinking intervals (moving rectangles), what is the primary reason the sequence does not converge almost surely?",
+      "question": "3: In the experiment with shrinking intervals (moving rectangles), what is the primary reason the sequence does not converge almost surely?",
       "answers": {
         "a": "The sample mean converges to a wrong value",
         "b": "Each point ω lies in infinitely many non-overlapping intervals",
@@ -44,7 +44,7 @@
       "difficulty": "moderate"
     },
     {
-      "question": "Suppose $X_n \\xrightarrow{a.s.} X$. Which of the following must be true?",
+      "question": "4: Suppose $X_n \\xrightarrow{a.s.} X$. Which of the following must be true?",
       "answers": {
         "a": "There exists a subsequence of $X_n$ that converges in mean to $X$",
         "b": "Every subsequence of $X_n$ converges in probability to $X$",
@@ -58,7 +58,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "Which of the following sequences converges in probability to $0$?",
+      "question": "5: Which of the following sequences converges in probability to $0$?",
       "answers": {
         "a": "$X_n = 1$ with probability $1/n$, $0$ otherwise",
         "b": "$X_n = 1$ if n is even, $0$ if n is odd",
