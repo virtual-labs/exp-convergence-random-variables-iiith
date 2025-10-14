@@ -7,7 +7,7 @@ The experiment aims to :
   - Almost Sure Convergence
   - Convergence in Probability
   - Convergence in Distribution
-  - Mean Squared Convergence
+  - Mean Square Convergence
 - Discuss the relationships and implications between different types of convergence.
 - Discuss the Weak Law of Large Numbers.
 - Emperically verify and visually demonstrate the convergence behaviour of different types of convergences and the weak law of large numbers.

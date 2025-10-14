@@ -9,6 +9,7 @@ This leads us to the concept of **convergence**: we are interested in understand
 3. **Convergence in Distribution**: The distribution functions of $X_n$ converge to the distribution function of $X$ at all continuity points.
 4. **Mean Square Convergence**: The expected value of $|X_n - X|^2$ approaches zero as $n \to \infty$.
 
+
 These are all different kinds of convergence. A sequence might converge in one sense but not another. Some of these convergence types are ''stronger'' than others and some are ''weaker.'' By this, we mean the following: If Type A convergence is stronger than Type B convergence, it means that Type A convergence implies Type B convergence. The below figure summarizes how these types of convergence are related. In this figure, the stronger types of convergence are on top and, as we move to the bottom, the convergence becomes weaker. For example, using the figure, we conclude that if a sequence of random variables converges in probability to a random variable $X$, then the sequence converges in distribution to $X$ as well.
 
 ![Different types of convergence and their relationship with each other](images/diff_types_of_convgnc_color.png)
@@ -137,13 +138,13 @@ We often write this as $X_n \xrightarrow{m.s.} X$.
 
 As discussed previously, the different types of convergences are related to each other.
 
-- **Almost Sure Convergence** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
-- **Convergence in $L^p$ Norm** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
+1. **Almost Sure Convergence** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
+2. **Convergence in Mean Square** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
 
 | Type of Convergence | Notation                     | Implies                     |
 | ------------------- | ---------------------------- | --------------------------- |
 | Almost Sure         | $X_n \xrightarrow{a.s.} X$ | Convergence in Probability  |
-| In Mean Square      | $X_n \xrightarrow{m.s.} X$  | Convergence in Probability  |
+| In Mean Square      | $X_n \xrightarrow{m.s.} X$ | Convergence in Probability  |
 | In Probability      | $X_n \xrightarrow{P} X$    | Convergence in Distribution |
 | In Distribution     | $X_n \xrightarrow{d} X$    | —                          |
 
