@@ -42,6 +42,7 @@
                         <h4 style="margin-top: 1rem;">Procedure</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-top: 1rem;">
                             <li>Read the experiment setting which defines the "moving, shrinking rectangles" sequence \(X_n\).</li>
+                            <li>Use the animation to visualize how the rectangle for \(X_n\) moves and shrinks as \(n\) increases. The block number `k` in the main controls determines how far the animation runs.</li>
                             <li>Enter a value for \(\omega\) in the range (0, 1). This represents picking a single outcome from all possibilities.</li>
                             <li>Enter a block number \(k\). Each block contains \(2^{k-1}\) random variables.</li>
                             <li>Click "Check". The tool will find the specific random variable \(X_n\) within that block where its value is 1 for your chosen \(\omega\).</li>
@@ -61,10 +62,21 @@
                 <div class="white-boxed-panel">
                     <div class="convergence-description">
                         <h4><strong>Experiment Setting: The Moving, Shrinking Rectangles</strong></h4>
-                        <!-- CORRECTED BOLD TAGS HERE -->
                         <p>We define a sequence of random variables \(X_n\) on the probability space \(\Omega = (0, 1]\). For each integer \(k \geq 1\), the block of variables from \(X_{2^{k-1}}\) to \(X_{2^k-1}\) are defined. Each variable in this block is 1 on a unique sub-interval of (0, 1] of length \(2^{-(k-1)}\), and 0 otherwise. This sequence converges to 0 <strong>in probability</strong> because the width of these intervals (i.e., the probability of being 1) shrinks to zero. However, does it converge <strong>almost surely</strong>?</p>
-                        <div class="image-container">
-                            <img src="./images/figure_convergence.png" alt="Figure showing intervals for the random variables">
+                        
+                        <div class="animation-container">
+                            <h4>Animation of \(X_n(\omega)\)</h4>
+                            <div class="chart-wrapper" style="height: 300px; margin-bottom: 1rem;">
+                                 <canvas id="animationPlot"></canvas>
+                            </div>
+                            <div class="animation-controls">
+                                <button class="button is-info" id="startAnimationBtn">Start Animation</button>
+                                <button class="button is-danger" id="stopAnimationBtn">Stop Animation</button>
+                                <div class="control-item">
+                                     <label for="speedSlider">Speed:</label>
+                                     <input type="range" min="50" max="1000" value="500" class="slider" id="speedSlider">
+                                </div>
+                            </div>
                         </div>
                     </div>
 

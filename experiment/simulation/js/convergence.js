@@ -1,4 +1,14 @@
+let animationInterval = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('startAnimationBtn').addEventListener('click', startAnimation);
+    document.getElementById('stopAnimationBtn').addEventListener('click', stopAnimation);
+    // Initialize the animation plot view with the first variable
+    plotAnimatedVariable(1); 
+});
+
 function runConvergence() {
+    stopAnimation(); // Stop animation if it's running
     const omegaInput = document.getElementById('omega').value;
     const blockInput = document.getElementById('block').value;
     const observations = document.getElementById('observations');
@@ -26,7 +36,6 @@ function runConvergence() {
     const j = Math.floor(omega / interval_width);
     const foundIndex = start_n + j;
 
-    // Display detailed observations with MathJax delimiters
     observations.innerHTML = `
         <h4>Analysis for Your Inputs:</h4>
         <p><strong>Selected Outcome (\\(\\omega\\)):</strong> <span class="result-highlight">${omega}</span></p>
@@ -43,11 +52,9 @@ function runConvergence() {
         <div class="theory-box">
             <h5>Why is the answer always "does not converge"?</h5>
             <p>This experiment is a counterexample designed to show that a sequence can <strong>converge in probability</strong> (which this one does) without satisfying the stricter condition of <strong>almost sure convergence</strong>.</p>
-            
         </div>
     `;
     
-    // Tell MathJax to re-render the new content in the observations div
     if (window.MathJax) {
         MathJax.typeset([observations]);
     }
@@ -56,12 +63,91 @@ function runConvergence() {
     plotOmegaSequence(omega, k);
 }
 
+function plotAnimatedVariable(n) {
+    const k = Math.floor(Math.log2(n)) + 1;
+    const start_n_of_block = Math.pow(2, k - 1);
+    const width = Math.pow(2, -(k - 1));
+    const j_index = n - start_n_of_block;
+
+    const interval_start = j_index * width;
+    const interval_end = (j_index + 1) * width;
+
+    const data = [];
+    data.push({x: 0, y: 0});
+    data.push({x: interval_start, y: 0});
+    data.push({x: interval_start, y: 1});
+    data.push({x: interval_end, y: 1});
+    data.push({x: interval_end, y: 0});
+    data.push({x: 1, y: 0});
+
+    const ctx = document.getElementById('animationPlot').getContext('2d');
+    if (window.animChart) window.animChart.destroy();
+
+    window.animChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: `Plot of X_${n}(ω)`,
+                data: data,
+                borderColor: '#3e95cd',
+                stepped: true,
+                fill: true,
+                backgroundColor: 'rgba(62, 149, 205, 0.2)',
+                pointRadius: 0
+            }]
+        },
+        options: {
+            animation: false,
+            responsive: true, maintainAspectRatio: false,
+            scales: {
+                x: { type: 'linear', title: { display: true, text: 'Outcome ω' }, min: 0, max: 1 },
+                y: { ticks: { stepSize: 1 }, title: { display: true, text: `Value of X_n(ω)` } }
+            },
+            plugins: { title: { display: true, text: `Plot of Random Variable X_${n}` } }
+        }
+    });
+}
+
+function startAnimation() {
+    stopAnimation(); 
+    const blockInput = document.getElementById('block').value;
+    const k_max = parseInt(blockInput);
+
+    if (isNaN(k_max) || k_max <= 0) {
+        alert("Please enter a positive integer for the block number k to set the animation limit.");
+        return;
+    }
+    if (k_max >= 12) {
+        alert("Animating up to a large k may be slow. Consider k < 12.");
+    }
+
+    const max_n = Math.pow(2, k_max) - 1;
+    let n = 1;
+
+    const speed = 1050 - document.getElementById('speedSlider').value;
+
+    plotAnimatedVariable(n);
+    n++;
+
+    animationInterval = setInterval(() => {
+        if (n > max_n) {
+            stopAnimation();
+            return;
+        }
+        plotAnimatedVariable(n);
+        n++;
+    }, speed);
+}
+
+function stopAnimation() {
+    clearInterval(animationInterval);
+}
+
 function plotRandomVariable(n, k, width, j_index) {
     const data = [];
     const interval_start = j_index * width;
     const interval_end = (j_index + 1) * width;
 
-    // Create a stepped line plot
     data.push({x: 0, y: 0});
     data.push({x: interval_start, y: 0});
     data.push({x: interval_start, y: 1});
