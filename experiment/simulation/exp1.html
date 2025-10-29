@@ -10,7 +10,7 @@
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-    <title>Comparison of Convergences</title>
+    <title>Visualizing Convergence in Probability</title>
 </head>
 
 <body>
@@ -25,28 +25,27 @@
         </div>
         
         <div class="subheading-box">
-            <h3 class="title">Convergence in Probability vs. Almost Sure Convergence</h3>
+            <h3 class="title">Visualizing Convergence in Probability</h3>
         </div>
 
         <div class="columns is-centered">
-            <div class="column is-11">
+            <div class="column is-10">
                 <div class="v-collapsible-instruction-container v-instruction-container">
                     <div class="v-collapsible is-size-5">Instructions</div>
                     <div class="v-content" style="text-align: left; padding: 0 10%;">
                         <h4>Theory Overview</h4>
-                        <p>In probability, a sequence of random variables can converge in different ways. This experiment explores a famous example that highlights the difference between two important types:</p>
-                        <ul style="list-style: disc; margin-left: 20px; margin-top: 1rem;">
-                            <li><strong>Convergence in Probability:</strong> The sequence \(X_n\) converges to \(X\) if, as \(n\) gets large, the probability that \(X_n\) is far from \(X\) becomes vanishingly small.</li>
-                            <li><strong>Almost Sure Convergence:</strong> A much stronger condition. For any specific outcome \(\omega\), the sequence of numbers \(X_n(\omega)\) must converge to \(X(\omega)\). This means individual sample paths must eventually "settle down" at the limit.</li>
-                        </ul>
+                        <p>A sequence of random variables \(X_n\) converges to \(X=0\) <strong>in probability</strong> if the probability that \(X_n\) is non-zero becomes vanishingly small as \(n\) increases. Formally, for any \(\epsilon > 0\):</p>
+                        <p style="text-align: center;">\( \lim_{n \to \infty} P(|X_n - 0| > \epsilon) = 0 \)</p>
+                        <p>In this experiment, this simplifies to \( \lim_{n \to \infty} P(X_n = 1) = 0 \), because the width of the rectangle (which represents this probability) shrinks to zero.</p>
+                        
                         <h4 style="margin-top: 1rem;">Procedure</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-top: 1rem;">
-                            <li>Read the experiment setting which defines the "moving, shrinking rectangles" sequence \(X_n\).</li>
-                            <li>Use the animation to visualize how the rectangle for \(X_n\) moves and shrinks as \(n\) increases. The block number `k` in the main controls determines how far the animation runs.</li>
-                            <li>Enter a value for \(\omega\) in the range (0, 1). This represents picking a single outcome from all possibilities.</li>
-                            <li>Enter a block number \(k\). Each block contains \(2^{k-1}\) random variables.</li>
-                            <li>Click "Check". The tool will find the specific random variable \(X_n\) within that block where its value is 1 for your chosen \(\omega\).</li>
-                            <li>Observe how for any \(\omega\), you can always find an \(X_n=1\) in any block, no matter how large \(k\) is. This proves the sequence of outcomes \(X_n(\omega)\) never settles to 0, and thus does not converge almost surely.</li>
+                            <li>Enter a block number `k` to define how far the animation should run. A larger `k` will show the trend more clearly.</li>
+                            <li>Click "Start Animation".</li>
+                            <li><strong>Observe both plots simultaneously:</strong></li>
+                            <li style="margin-left: 20px;">The <strong>top plot (blue)</strong> shows the individual random variable \(X_n\) as a moving, shrinking rectangle.</li>
+                            <li style="margin-left: 20px;">The <strong>bottom plot (green)</strong> tracks the probability \(P(X_n=1)\) against \(n\).</li>
+                            <li>Notice how the green line trends decisively towards the zero line. This is the explicit visualization of convergence in probability.</li>
                         </ul>
                     </div>
                 </div>
@@ -58,56 +57,34 @@
     <section id="page1">
         <div class="columns is-centered">
             <!-- Main Content Column -->
-            <div class="column is-7-desktop is-12-tablet">
+            <div class="column is-10-desktop is-12-tablet">
                 <div class="white-boxed-panel">
                     <div class="convergence-description">
                         <h4><strong>Experiment Setting: The Moving, Shrinking Rectangles</strong></h4>
-                        <p>We define a sequence of random variables \(X_n\) on the probability space \(\Omega = (0, 1]\). For each integer \(k \geq 1\), the block of variables from \(X_{2^{k-1}}\) to \(X_{2^k-1}\) are defined. Each variable in this block is 1 on a unique sub-interval of (0, 1] of length \(2^{-(k-1)}\), and 0 otherwise. This sequence converges to 0 <strong>in probability</strong> because the width of these intervals (i.e., the probability of being 1) shrinks to zero. However, does it converge <strong>almost surely</strong>?</p>
+                        <p>The sequence of random variables \(X_n\) is defined such that the width of the interval where \(X_n=1\) gets smaller for larger \(n\). This width is exactly the probability \(P(X_n=1)\). The animation below demonstrates that this probability approaches zero.</p>
                         
                         <div class="animation-container">
-                            <h4>Animation of \(X_n(\omega)\)</h4>
-                            <div class="chart-wrapper" style="height: 300px; margin-bottom: 1rem;">
-                                 <canvas id="animationPlot"></canvas>
-                            </div>
-                            <div class="animation-controls">
+                             <div class="animation-controls">
+                                <div class="control-item">
+                                     <label for="block">Animate up to block k:</label>
+                                     <input type="number" id="block" min="1" max="10" value="5" style="width: 100px;">
+                                </div>
                                 <button class="button is-info" id="startAnimationBtn">Start Animation</button>
                                 <button class="button is-danger" id="stopAnimationBtn">Stop Animation</button>
                                 <div class="control-item">
                                      <label for="speedSlider">Speed:</label>
-                                     <input type="range" min="50" max="1000" value="500" class="slider" id="speedSlider">
+                                     <input type="range" min="50" max="1000" value="800" class="slider" id="speedSlider">
+                                </div>
+                            </div>
+                            <div class="charts-container" style="margin-top: 1.5rem; flex-direction: column; align-items: center; gap: 2rem;">
+                                <div class="chart-wrapper" style="height: 350px; width: 100%; max-width: 800px;">
+                                     <canvas id="animationPlot"></canvas>
+                                </div>
+                                <div class="chart-wrapper" style="height: 350px; width: 100%; max-width: 800px;">
+                                     <canvas id="probabilityPlot"></canvas>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="controls-container convergence-controls">
-                        <div class="control-item">
-                            <label for="omega">Choose an outcome, \(\omega \in (0, 1)\):</label>
-                            <input type="number" id="omega" step="0.01" value="0.37">
-                        </div>
-                        <div class="control-item">
-                            <label for="block">Choose a block number, \(k\):</label>
-                            <input type="number" id="block" min="1" value="4">
-                        </div>
-                        <button class="button is-primary" onclick="runConvergence()">Check</button>
-                    </div>
-                    
-                    <div class="charts-container">
-                        <div class="chart-wrapper">
-                            <canvas id="randomVariablePlot"></canvas>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="omegaSequencePlot"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Observations Column -->
-            <div class="column is-4-desktop is-12-tablet">
-                <div class="v-datalist-container components-list">
-                    <div class="v-datalist-title">Observations</div>
-                    <div id="observations">
-                        <p class="placeholder">Enter values for \(\omega\) and \(k\), then click "Check" to begin the analysis.</p>
                     </div>
                 </div>
             </div>
