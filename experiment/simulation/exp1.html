@@ -34,18 +34,19 @@
                     <div class="v-collapsible is-size-5">Instructions</div>
                     <div class="v-content" style="text-align: left; padding: 0 10%;">
                         <h4>Theory Overview</h4>
-                        <p>A sequence of random variables \(X_n\) converges to \(X=0\) <strong>in probability</strong> if the probability that \(X_n\) is non-zero becomes vanishingly small as \(n\) increases. Formally, for any \(\epsilon > 0\):</p>
+                        <p>A sequence of random variables \(X_n\) converges to \(X=0\) <strong>in probability</strong> if, for any small number \(\epsilon > 0\), the probability that \(X_n\) is different from 0 by more than \(\epsilon\) shrinks to nothing as \(n\) gets larger. Formally:</p>
                         <p style="text-align: center;">\( \lim_{n \to \infty} P(|X_n - 0| > \epsilon) = 0 \)</p>
-                        <p>In this experiment, this simplifies to \( \lim_{n \to \infty} P(X_n = 1) = 0 \), because the width of the rectangle (which represents this probability) shrinks to zero.</p>
-                        
+                        <p>For this specific experiment where \(X_n\) can only be 0 or 1, this simplifies to observing that the total probability of \(X_n\) being 1 approaches zero: \( \lim_{n \to \infty} P(X_n = 1) = 0 \).</p>
+
                         <h4 style="margin-top: 1rem;">Procedure</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-top: 1rem;">
-                            <li>Enter a block number `k` to define how far the animation should run. A larger `k` will show the trend more clearly.</li>
-                            <li>Click "Start Animation".</li>
-                            <li><strong>Observe both plots simultaneously:</strong></li>
-                            <li style="margin-left: 20px;">The <strong>top plot (blue)</strong> shows the individual random variable \(X_n\) as a moving, shrinking rectangle.</li>
-                            <li style="margin-left: 20px;">The <strong>bottom plot (green)</strong> tracks the probability \(P(X_n=1)\) against \(n\).</li>
-                            <li>Notice how the green line trends decisively towards the zero line. This is the explicit visualization of convergence in probability.</li>
+                            <li>Use the top slider to select a specific outcome value, \(\omega\). This is your point of observation.</li>
+                            <li>Enter a block number `k` to define how far the animation should run.</li>
+                            <li>Click "Start Animation" and observe all three plots simultaneously.</li>
+                            <li><strong>Plot 1 (Top):</strong> Watch the blue rectangle move and shrink. The dashed line is your chosen \(\omega\). It will turn <strong>green</strong> on a "hit" (\(X_n(\omega)=1\)) and <strong>red</strong> on a "miss" (\(X_n(\omega)=0\)).</li>
+                            <li><strong>Plot 2 (Middle):</strong> This shows the overall probability \(P(X_n=1)\), which is just the width of the blue rectangle. Notice how this green line trends decisively towards the zero line.</li>
+                            <li><strong>Plot 3 (Bottom):</strong> This tracks the value of \(X_n\) *only at your chosen \(\omega\)*. It will be 1 for a few 'hits' but will eventually become 0 and stay there, demonstrating convergence for that single "sample path".</li>
+                            <li>Once the animation is complete, review the <strong>Experiment Results & Observations</strong> panel that appears below the charts for a summary.</li>
                         </ul>
                     </div>
                 </div>
@@ -66,6 +67,10 @@
                         <div class="animation-container">
                              <div class="animation-controls">
                                 <div class="control-item">
+                                    <label for="omegaSlider">Select Outcome ω: <span id="omegaValue">0.50</span></label>
+                                    <input type="range" min="0" max="1" value="0.5" step="0.01" class="slider" id="omegaSlider">
+                                </div>
+                                <div class="control-item">
                                      <label for="block">Animate up to block k:</label>
                                      <input type="number" id="block" min="1" max="10" value="5" style="width: 100px;">
                                 </div>
@@ -83,8 +88,24 @@
                                 <div class="chart-wrapper" style="height: 350px; width: 100%; max-width: 800px;">
                                      <canvas id="probabilityPlot"></canvas>
                                 </div>
+                                <div class="chart-wrapper" style="height: 350px; width: 100%; max-width: 800px;">
+                                    <canvas id="omegaPlot"></canvas>
+                               </div>
                             </div>
                         </div>
+
+                        <!-- Observation Panel - initially hidden -->
+                        <div class="columns is-centered" id="observation-container" style="display: none; margin-top: 2rem;">
+                            <div class="column is-12">
+                                <div class="v-datalist-container components-list" style="height: auto;">
+                                    <div class="v-datalist-title">Observations</div>
+                                    <div id="observation-panel" style="text-align: left; width: 100%; padding: 5px;">
+                                        <p>Complete the animation to see the results and observations.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
