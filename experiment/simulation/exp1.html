@@ -42,7 +42,7 @@
                         <ul style="list-style: disc; margin-left: 20px; margin-top: 1rem;">
                             <li>Use the top slider to select a specific outcome value, \(\omega\). This is your point of observation.</li>
                             <li>Enter a block number `k` to define how far the animation should run.</li>
-                            <li>Click "Start Animation" and observe all three plots simultaneously.</li>
+                            <li>Click "Start Animation" and observe all three plots simultaneously. The animation speed will adjust automatically based on 'k'.</li>
                             <li><strong>Plot 1 (Top):</strong> Watch the blue rectangle move and shrink. The dashed line is your chosen \(\omega\). It will turn <strong>green</strong> on a "hit" (\(X_n(\omega)=1\)) and <strong>red</strong> on a "miss" (\(X_n(\omega)=0\)).</li>
                             <li><strong>Plot 2 (Middle):</strong> This shows the overall probability \(P(X_n=1)\), which is just the width of the blue rectangle. Notice how this green line trends decisively towards the zero line.</li>
                             <li><strong>Plot 3 (Bottom):</strong> This tracks the value of \(X_n\) *only at your chosen \(\omega\)*. It will be 1 for a few 'hits' but will eventually become 0 and stay there, demonstrating convergence for that single "sample path".</li>
@@ -76,19 +76,15 @@
                                 </div>
                                 <button class="button is-info" id="startAnimationBtn">Start Animation</button>
                                 <button class="button is-danger" id="stopAnimationBtn">Stop Animation</button>
-                                <div class="control-item">
-                                     <label for="speedSlider">Speed:</label>
-                                     <input type="range" min="50" max="1000" value="800" class="slider" id="speedSlider">
-                                </div>
                             </div>
                             <div class="charts-container" style="margin-top: 1.5rem; flex-direction: column; align-items: center; gap: 2rem;">
-                                <div class="chart-wrapper" style="height: 350px; width: 100%; max-width: 800px;">
+                                <div class="chart-wrapper" style="height: 600px; width: 100%; max-width: 1100px;">
                                      <canvas id="animationPlot"></canvas>
                                 </div>
-                                <div class="chart-wrapper" style="height: 350px; width: 100%; max-width: 800px;">
+                                <div class="chart-wrapper" style="height: 600px; width: 100%; max-width: 1100px;">
                                      <canvas id="probabilityPlot"></canvas>
                                 </div>
-                                <div class="chart-wrapper" style="height: 350px; width: 100%; max-width: 800px;">
+                                <div class="chart-wrapper" style="height: 600px; width: 100%; max-width: 1100px;">
                                     <canvas id="omegaPlot"></canvas>
                                </div>
                             </div>

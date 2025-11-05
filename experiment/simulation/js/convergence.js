@@ -32,22 +32,46 @@ function initializePlots() {
         data: { 
             datasets: [
                 { // The main rectangle
-                    label: `Plot of X_n(ω)`, borderColor: '#3e95cd', backgroundColor: 'rgba(62, 149, 205, 0.3)',
-                    fill: true, stepped: true, pointRadius: 0, order: 2
+                    label: `Plot of X_n(ω)`,
+                    borderColor: '#3e95cd',
+                    backgroundColor: 'rgba(62, 149, 205, 0.4)',
+                    borderWidth: 2.5,
+                    fill: true,
+                    stepped: true,
+                    pointRadius: 0,
+                    order: 2
                 },
                 { // The vertical line for omega
-                    label: 'Selected ω', borderColor: '#ff6384', borderWidth: 2, borderDash: [5, 5],
-                    pointRadius: 0, fill: false, order: 1
+                    label: 'Selected ω',
+                    borderColor: '#ff6384',
+                    borderWidth: 3,
+                    borderDash: [6, 6],
+                    pointRadius: 0,
+                    fill: false,
+                    order: 1
                 }
             ] 
         },
         options: {
-            responsive: true, maintainAspectRatio: false,
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
-                x: { type: 'linear', title: { display: true, text: 'Outcome ω' }, min: 0, max: 1 },
-                y: { ticks: { stepSize: 1 }, title: { display: true, text: `Value of X_n(ω)` }, min: 0, max: 1.1 }
+                x: {
+                    type: 'linear',
+                    title: { display: true, text: 'Outcome ω', font: { size: 14 } },
+                    min: 0, max: 1,
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                },
+                y: {
+                    ticks: { stepSize: 1 },
+                    title: { display: true, text: `Value of X_n(ω)`, font: { size: 14 } },
+                    min: 0, max: 1.1,
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                }
             },
-            plugins: { title: { display: true, text: `Plot of Random Variable X_n` } }
+            plugins: {
+                title: { display: true, text: `Plot of Random Variable X_n`, font: { size: 16 } }
+            }
         }
     });
 
@@ -56,18 +80,39 @@ function initializePlots() {
     if (window.probChart) window.probChart.destroy();
     window.probChart = new Chart(probCtx, {
         type: 'line',
-        data: { labels: [], datasets: [{
-            label: 'P(X_n = 1)', data: [], borderColor: '#2ecc71',
-            backgroundColor: 'rgba(46, 204, 113, 0.3)', fill: false,
-            pointRadius: 2, pointHoverRadius: 5, borderWidth: 2
-        }] },
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'P(X_n = 1)',
+                data: [],
+                borderColor: '#2ecc71',
+                backgroundColor: 'rgba(46, 204, 113, 0.3)',
+                fill: false,
+                pointRadius: 3,
+                pointHoverRadius: 6,
+                borderWidth: 2.5
+            }]
+        },
         options: {
-            responsive: true, maintainAspectRatio: false,
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
-                x: { type: 'linear', title: { display: true, text: 'Index n' } },
-                y: { type: 'linear', title: { display: true, text: 'Probability' }, min: 0, max: 1.1 }
+                x: {
+                    type: 'linear',
+                    title: { display: true, text: 'Index n', font: { size: 14 } },
+                    min: 1, // Start axis at n=1
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                },
+                y: {
+                    type: 'linear',
+                    title: { display: true, text: 'Probability', font: { size: 14 } },
+                    min: 0, max: 1.1,
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                }
             },
-            plugins: { title: { display: true, text: 'Convergence in Probability: P(X_n = 1) → 0' } }
+            plugins: {
+                title: { display: true, text: 'Convergence in Probability: P(X_n = 1) → 0', font: { size: 16 } }
+            }
         }
     });
 
@@ -76,21 +121,59 @@ function initializePlots() {
     if (window.omegaChart) window.omegaChart.destroy();
     window.omegaChart = new Chart(omegaCtx, {
         type: 'line',
-        data: { labels: [], datasets: [{
-            label: 'Value at selected ω', data: [], borderColor: '#f39c12',
-            stepped: true, pointRadius: 2, pointHoverRadius: 5, borderWidth: 2
-        }] },
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Value at selected ω',
+                data: [],
+                borderColor: '#f39c12',
+                stepped: true,
+                pointRadius: 3,
+                pointHoverRadius: 6,
+                borderWidth: 2.5
+            }]
+        },
         options: {
-            responsive: true, maintainAspectRatio: false,
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
-                x: { type: 'linear', title: { display: true, text: 'Index n' } },
-                y: { ticks: { stepSize: 1 }, title: { display: true, text: 'Value X_n(ω)' }, min: -0.1, max: 1.1 }
+                x: {
+                    type: 'linear',
+                    title: { display: true, text: 'Index n', font: { size: 14 } },
+                    min: 1, // Start axis at n=1
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                },
+                y: {
+                    ticks: { stepSize: 1 },
+                    title: { display: true, text: 'Value X_n(ω)', font: { size: 14 } },
+                    min: -0.1, max: 1.1,
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                }
             },
-            plugins: { title: { display: true, text: `Sample Path for a Fixed ω = ${initialOmega.toFixed(2)}` } }
+            plugins: {
+                title: { display: true, text: `Sample Path for a Fixed ω = ${initialOmega.toFixed(2)}`, font: { size: 16 } }
+            }
         }
     });
 
     updateOmegaLine(initialOmega);
+}
+
+/**
+ * Calculates an appropriate animation speed based on the number of blocks (k).
+ * @param {number} k - The block number.
+ * @returns {number} The interval delay in milliseconds.
+ */
+function getDynamicSpeed(k) {
+    if (k <= 2) return 700; // Very slow for the first few steps
+    if (k === 3) return 500;
+    if (k === 4) return 300;
+    if (k === 5) return 150;
+    if (k === 6) return 80;
+    if (k === 7) return 40;
+    if (k === 8) return 20;
+    if (k === 9) return 10;
+    return 5; // Max speed for k=10 and above
 }
 
 /**
@@ -172,9 +255,26 @@ function startAnimation() {
     }
 
     const max_n = Math.pow(2, k_max) - 1;
-    let n = 1;
 
-    const speed = 1050 - document.getElementById('speedSlider').value;
+    // Handle x-axis scaling based on the number of steps.
+    if (max_n > 1) {
+        // Normal case for k > 1: Fit the axis to the data range.
+        if (window.probChart) window.probChart.options.scales.x.max = max_n;
+        if (window.omegaChart) window.omegaChart.options.scales.x.max = max_n;
+    } else if (max_n === 1) {
+        // Special case for k = 1: Center the single point at n=1 by setting the axis from 0 to 2.
+        if (window.probChart) {
+            window.probChart.options.scales.x.min = 0;
+            window.probChart.options.scales.x.max = 2;
+        }
+        if (window.omegaChart) {
+            window.omegaChart.options.scales.x.min = 0;
+            window.omegaChart.options.scales.x.max = 2;
+        }
+    }
+
+    let n = 1;
+    const speed = getDynamicSpeed(k_max); // Use the dynamic speed
 
     animationInterval = setInterval(() => {
         if (n > max_n) {
