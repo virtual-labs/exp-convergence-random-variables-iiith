@@ -307,21 +307,17 @@ function displayFinalObservation(total_n) {
     const probData = window.probChart.data.datasets[0].data;
     const totalHits = omegaData.reduce((sum, value) => sum + value, 0);
 
-    let obsHTML = `<p>The animation ran for <strong>${total_n}</strong> steps (from n=1 to n=${total_n}).</p>`;
+    let obsHTML = `<p>The animation ran for <strong>${total_n}</strong> steps (from n=1 to n=${total_n}).</p><hr>`;
     
-    obsHTML += `<p style="margin-top:1rem;"><strong>1. Overall Probability (Middle Plot)</strong></p>`;
-    obsHTML += `<p>The green line shows that the probability \\(P(X_n=1)\\) steadily decreased from <strong>${probData[0].toFixed(2)}</strong> down to <strong>${probData[probData.length - 1].toFixed(4)}</strong>. This visually confirms that \\( P(X_n=1) \\to 0 \\), which is the definition of convergence in probability for this sequence.</p>`;
+    obsHTML += `<h4>1. Convergence in Probability (Middle Plot)</h4>`;
+    obsHTML += `<p>The green line shows that the probability \\(P(X_n=1)\\) steadily decreased from <strong>${probData[0].toFixed(2)}</strong> down to <strong>${probData[probData.length - 1].toFixed(4)}</strong>. This visually confirms that \\( \\lim_{n \\to \\infty} P(X_n = 1) = 0 \\).</p>`;
+    obsHTML += `<p>Since \\(X_n\\) can only be 0 or 1, the event \\(|X_n - 0| > \\epsilon\\) (for any \\(0 < \\epsilon < 1\\)) is exactly the same as the event \\(X_n = 1\\). Therefore, the plot demonstrates that \\( \\lim_{n \\to \\infty} P(|X_n - 0| > \\epsilon) = 0 \\), which is the formal definition of <strong>convergence in probability</strong>.</p>`;
 
-    obsHTML += `<p style="margin-top:1rem;"><strong>2. Specific Outcome at ω = ${selectedOmega.toFixed(2)} (Bottom Plot)</strong></p>`;
-    obsHTML += `<p>For your chosen outcome \\(\\omega = ${selectedOmega.toFixed(2)}\\), the value of \\(X_n(\\omega)\\) was 1 (a "hit") a total of <strong>${totalHits}</strong> time(s).</p>`;
+    obsHTML += `<h4 style="margin-top:1.5rem;">2. Why the Sequence Does NOT Converge Almost Surely (Bottom Plot)</h4>`;
+    obsHTML += `<p>Almost sure convergence requires that for a specific \\(\\omega\\), the sequence \\(X_n(\\omega)\\) eventually becomes 0 and <strong>stays 0 forever</strong>. The bottom plot, however, shows this is not the case.</p>`;
+    obsHTML += `<p>For your chosen outcome \\(\\omega = ${selectedOmega.toFixed(2)}\\), you observed <strong>${totalHits}</strong> "hit(s)". While the animation stops and the value might be 0 at the end, the underlying pattern of the moving rectangle guarantees that it will eventually sweep over your chosen \\(\\omega\\) again if we let \\(n\\) grow infinitely large. In fact, for any \\(\\omega\\), \\(X_n(\\omega)\\) will equal 1 for infinitely many values of \\(n\\).</p>`;
     
-    if (totalHits > 0) {
-        obsHTML += `<p>Even with these hits, the bottom plot clearly shows that as \\(n\\) became large, the value of \\(X_n(\\omega)\\) eventually became <strong>0</strong> and stayed there. This is the key takeaway: for any specific point \\(\\omega\\), the chance of it being "hit" becomes vanishingly small, and eventually, it is always "missed".</p>`;
-    } else {
-        obsHTML += `<p>For this specific \\(\\omega\\), the value of \\(X_n(\\omega)\\) was <strong>always 0</strong>. This is a perfect illustration of the convergence at this point.</p>`;
-    }
-    
-    obsHTML += `<hr><p style="font-weight:bold;">This experiment demonstrates the essence of convergence in probability: while the non-zero part of the function is always *somewhere*, the probability of it landing on any *specific* point you choose tends to zero.</p>`;
+    obsHTML += `<p style="margin-top:1rem; font-weight:bold;">Because the sequence \\(X_n(\\omega)\\) never permanently settles at 0 for any given \\(\\omega\\), it fails the condition for almost sure convergence. This experiment provides an example of a sequence that converges in probability but does not converge almost surely.</p>`;
     
     observationPanel.innerHTML = obsHTML;
     observationContainer.style.display = ''; // Use '' to revert to default display

@@ -25,7 +25,7 @@
         </div>
         
         <div class="subheading-box">
-            <h3 class="title">Visualizing Convergence in Probability</h3>
+            <h3 class="title">Visualizing Convergence in Probability vs. Almost Sure Convergence</h3>
         </div>
 
         <div class="columns is-centered">
@@ -37,6 +37,7 @@
                         <p>A sequence of random variables \(X_n\) converges to \(X=0\) <strong>in probability</strong> if, for any small number \(\epsilon > 0\), the probability that \(X_n\) is different from 0 by more than \(\epsilon\) shrinks to nothing as \(n\) gets larger. Formally:</p>
                         <p style="text-align: center;">\( \lim_{n \to \infty} P(|X_n - 0| > \epsilon) = 0 \)</p>
                         <p>For this specific experiment where \(X_n\) can only be 0 or 1, this simplifies to observing that the total probability of \(X_n\) being 1 approaches zero: \( \lim_{n \to \infty} P(X_n = 1) = 0 \).</p>
+                        <p>This is different from <strong>almost sure convergence</strong>, which would require that for any given outcome \(\omega\), the sequence of values \(X_n(\omega)\) eventually becomes 0 and *stays* 0 forever. As you will see, this is not the case in this experiment, providing a classic example of a sequence that converges in probability but not almost surely.</p>
 
                         <h4 style="margin-top: 1rem;">Procedure</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-top: 1rem;">
@@ -45,7 +46,7 @@
                             <li>Click "Start Animation" and observe all three plots simultaneously. The animation speed will adjust automatically based on 'k'.</li>
                             <li><strong>Plot 1 (Top):</strong> Watch the blue rectangle move and shrink. The dashed line is your chosen \(\omega\). It will turn <strong>green</strong> on a "hit" (\(X_n(\omega)=1\)) and <strong>red</strong> on a "miss" (\(X_n(\omega)=0\)).</li>
                             <li><strong>Plot 2 (Middle):</strong> This shows the overall probability \(P(X_n=1)\), which is just the width of the blue rectangle. Notice how this green line trends decisively towards the zero line.</li>
-                            <li><strong>Plot 3 (Bottom):</strong> This tracks the value of \(X_n\) *only at your chosen \(\omega\)*. It will be 1 for a few 'hits' but will eventually become 0 and stay there, demonstrating convergence for that single "sample path".</li>
+                            <li><strong>Plot 3 (Bottom):</strong> This tracks the value of \(X_n\) *only at your chosen \(\omega\)*. It will show intermittent "hits" (value 1). While for the limited duration of the animation it may end at 0, it's crucial to understand that for any given \(\omega\), a "hit" will always occur again if you increase 'n' enough. This demonstrates why the sequence does not converge almost surely.</li>
                             <li>Once the animation is complete, review the <strong>Experiment Results & Observations</strong> panel that appears below the charts for a summary.</li>
                         </ul>
                     </div>
@@ -94,7 +95,7 @@
                         <div class="columns is-centered" id="observation-container" style="display: none; margin-top: 2rem;">
                             <div class="column is-12">
                                 <div class="v-datalist-container components-list" style="height: auto;">
-                                    <div class="v-datalist-title">Observations</div>
+                                    <div class="v-datalist-title">Experiment Results & Observations</div>
                                     <div id="observation-panel" style="text-align: left; width: 100%; padding: 5px;">
                                         <p>Complete the animation to see the results and observations.</p>
                                     </div>
