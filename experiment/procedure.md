@@ -1,5 +1,3 @@
-### Procedure
-
 ### Sub-experiment 1 : Convergence in Probability and Almost Sure Convergence
 
 - Read the experiment setting. The random variable $X_n$ is defined there.

@@ -1,5 +1,3 @@
-### Aim of the experiment
-
 The experiment aims to :
 
 - Introduce the concept of convergence for sequences of random variables.

@@ -1,5 +1,3 @@
-### Introduction
-
 In the realm of probability theory and statistical inference, it's common to encounter situations where we aim to estimate an unobservable random variable $X$ through a sequence of approximations. Suppose we cannot observe $X$ directly, but we can perform measurements or experiments to obtain estimates $X_1, X_2, X_3, \ldots$. Each subsequent estimate is derived from additional data or refined methodologies, with the hope that as $n$ increases, $X_n$ provides a more accurate approximation of $X$.
 
 This leads us to the concept of **convergence**: we are interested in understanding whether and how the sequence $\{X_n\}$ approaches $X$ as $n \to \infty$. In probability theory, convergence isn't a singular notion but encompasses various types, each capturing a different aspect of how $X_n$ may become "close" to $X$. These include:
@@ -8,7 +6,6 @@ This leads us to the concept of **convergence**: we are interested in understand
 2. **Convergence in Probability**: For any $\epsilon > 0$, the probability that $|X_n - X| > \epsilon$ approaches zero as $n \to \infty$.
 3. **Convergence in Distribution**: The distribution functions of $X_n$ converge to the distribution function of $X$ at all continuity points.
 4. **Mean Square Convergence**: The expected value of $|X_n - X|^2$ approaches zero as $n \to \infty$.
-
 
 These are all different kinds of convergence. A sequence might converge in one sense but not another. Some of these convergence types are ''stronger'' than others and some are ''weaker.'' By this, we mean the following: If Type A convergence is stronger than Type B convergence, it means that Type A convergence implies Type B convergence. The below figure summarizes how these types of convergence are related. In this figure, the stronger types of convergence are on top and, as we move to the bottom, the convergence becomes weaker. For example, using the figure, we conclude that if a sequence of random variables converges in probability to a random variable $X$, then the sequence converges in distribution to $X$ as well.
 
@@ -141,12 +138,12 @@ As discussed previously, the different types of convergences are related to each
 1. **Almost Sure Convergence** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
 2. **Convergence in Mean Square** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
 
-| Type of Convergence | Notation                     | Implies                     |
-| ------------------- | ---------------------------- | --------------------------- |
+| Type of Convergence | Notation                   | Implies                     |
+| ------------------- | -------------------------- | --------------------------- |
 | Almost Sure         | $X_n \xrightarrow{a.s.} X$ | Convergence in Probability  |
 | In Mean Square      | $X_n \xrightarrow{m.s.} X$ | Convergence in Probability  |
 | In Probability      | $X_n \xrightarrow{P} X$    | Convergence in Distribution |
-| In Distribution     | $X_n \xrightarrow{d} X$    | —                          |
+| In Distribution     | $X_n \xrightarrow{d} X$    | —                           |
 
 However, the converses do not generally hold.
 

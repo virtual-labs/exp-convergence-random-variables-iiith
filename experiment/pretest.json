@@ -10,7 +10,10 @@
         "d": "Convergence almost surely"
       },
       "explanations": {
-        "b": "Convergence in probability implies convergence in distribution, but not the other way around. The hierarchy is:  $X_n \\xrightarrow{a.s.} X \\Rightarrow X_n \\xrightarrow{p} X \\Rightarrow X_n \\xrightarrow{d} X$"
+        "a": "Convergence in mean square: $\\mathbb{E}[(X_n - X)^2] \\to 0$. This implies convergence in probability, which then implies convergence in distribution. So this is correct, but option (b) is a more direct answer.",
+        "b": "Correct. Convergence in probability implies convergence in distribution, but not the other way around. The hierarchy is: $X_n \\xrightarrow{a.s.} X \\Rightarrow X_n \\xrightarrow{p} X \\Rightarrow X_n \\xrightarrow{d} X$. Both (b) and (d) imply convergence in distribution.",
+        "c": "Convergence in variance: $\\text{Var}(X_n) \\to \\text{Var}(X)$. This is not sufficient to imply convergence in distribution. The variance can converge while the distribution does not.",
+        "d": "Almost sure convergence: $\\mathbb{P}(\\lim_{n\\to\\infty} X_n = X) = 1$. This is the strongest form and implies all other types including convergence in distribution. Both (b) and (d) are correct, but (b) is the most direct implication."
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -24,7 +27,10 @@
         "d": "The CDF of $X_n$ converges pointwise to the CDF of $X$"
       },
       "explanations": {
-        "b": "This is the formal definition of convergence in probability. It means that the probability of the random variable deviating from the limit by more than any $\\epsilon$ vanishes."
+        "a": "This describes almost sure convergence for discrete random variables, not convergence in probability. This is too strong a requirement - convergence in probability allows for occasional large deviations as long as they become rare.",
+        "b": "Correct. This is the formal definition of convergence in probability. It means that for any tolerance level $\\epsilon > 0$, the probability of the random variable deviating from the limit by more than $\\epsilon$ vanishes as $n \\to \\infty$.",
+        "c": "This defines convergence in $L^p$ norm (or convergence in the $p$-th mean). For $p=2$, this is mean square convergence. While this implies convergence in probability, it is a stronger condition.",
+        "d": "This is the definition of convergence in distribution (or weak convergence). Convergence in distribution is weaker than convergence in probability - it only requires the CDFs to converge, not the random variables themselves."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
@@ -38,7 +44,10 @@
         "d": "Convergence in Mean Square"
       },
       "explanations": {
-        "c": "The strongest standard form is almost sure convergence. It implies convergence in probability, which in turn implies convergence in distribution."
+        "a": "Convergence in distribution (weak convergence): $F_{X_n}(x) \\to F_X(x)$ at continuity points. This is the weakest form of convergence - it only requires the CDFs to match, not the actual random variables.",
+        "b": "Convergence in probability: $\\mathbb{P}(|X_n - X| > \\epsilon) \\to 0$ for all $\\epsilon > 0$. This is stronger than convergence in distribution but weaker than almost sure convergence. It allows for occasional large deviations.",
+        "c": "Correct. Almost sure convergence (a.s.): $\\mathbb{P}(\\lim_{n\\to\\infty} X_n = X) = 1$. This is the strongest standard form. It requires that $X_n(\\omega) \\to X(\\omega)$ for almost every outcome $\\omega$. The hierarchy: a.s. $\\Rightarrow$ in probability $\\Rightarrow$ in distribution.",
+        "d": "Convergence in mean square: $\\mathbb{E}[(X_n - X)^2] \\to 0$. This implies convergence in probability but does not imply (nor is implied by) almost sure convergence. These two types are not directly comparable, though a.s. is considered 'stronger' in the sense that it's a pointwise guarantee."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
@@ -59,7 +68,7 @@
       },
       "correctAnswer": "c",
       "difficulty": "advanced"
-    },   
+    },
     {
       "question": "5: What does convergence almost surely mean?",
       "answers": {
@@ -69,10 +78,13 @@
         "d": "The distribution of $X_n$ matches that of $X$"
       },
       "explanations": {
-        "c": "The values of $X_n$ get arbitrarily close to $X$ for almost all outcomes. Almost sure convergence means that the sequence converges to $X$ for all $\\omega \\in \\Omega$, except for a set of measure zero."
+        "a": "This is close but not quite right. Almost sure convergence doesn't require $X_n = X$ for large $n$, only that $\\lim_{n\\to\\infty} X_n(\\omega) = X(\\omega)$ for almost all $\\omega$. The sequence approaches $X$ asymptotically, not necessarily reaching it exactly.",
+        "b": "This describes convergence in mean (or $L^1$ convergence): $\\mathbb{E}[|X_n - X|] \\to 0$. This is different from almost sure convergence. A sequence can converge in mean without converging almost surely, and vice versa.",
+        "c": "Correct. Almost sure convergence means that $\\mathbb{P}(\\lim_{n\\to\\infty} X_n = X) = 1$, i.e., the sequence $X_n(\\omega)$ converges to $X(\\omega)$ for all outcomes $\\omega \\in \\Omega$ except possibly a set of measure zero. This is a pathwise (or pointwise) convergence property.",
+        "d": "This describes convergence in distribution, which is much weaker than almost sure convergence. Convergence in distribution only requires that the CDFs converge: $F_{X_n}(x) \\to F_X(x)$ at continuity points, without requiring the random variables themselves to be close."
       },
       "correctAnswer": "c",
       "difficulty": "intermediate"
-    }    
+    }
   ]
 }
