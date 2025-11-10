@@ -1,5 +1,3 @@
-### Aim of the experiment
-
 The experiment aims to :
 
 - Introduce the concept of convergence for sequences of random variables.
@@ -7,7 +5,7 @@ The experiment aims to :
   - Almost Sure Convergence
   - Convergence in Probability
   - Convergence in Distribution
-  - Convergence in \( L^p \) Norm
+  - Mean Square Convergence
 - Discuss the relationships and implications between different types of convergence.
 - Discuss the Weak Law of Large Numbers.
-- Emperically verify and visually demonstrate the convergence behaviour of different types of convergences and the weak law of large numbers. 
+- Emperically verify and visually demonstrate the convergence behaviour of different types of convergences and the weak law of large numbers.
