@@ -53,7 +53,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "4: Let $F_{X_n}(x) = \\begin{cases} 1 - \\left(1 - \\frac{1}{n}\\right)^{nx}, & x > 0 \\ 0, & x \\leq 0 \\end{cases}$. What does $X_n$ converge in distribution to?",
+      "question": "4: Let $F_{X_n}(x) = \\begin{cases} 1 - \\left(1 - \\frac{1}{n}\\right)^{nx}, & x > 0, & x \\leq 0 \\end{cases}$. What does $X_n$ converge in distribution to?",
       "answers": {
         "a": "U(0,1)",
         "b": "N(0,1)",
