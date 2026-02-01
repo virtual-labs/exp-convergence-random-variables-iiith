@@ -9,7 +9,11 @@ This leads us to the concept of **convergence**: we are interested in understand
 
 These are all different kinds of convergence. A sequence might converge in one sense but not another. Some of these convergence types are ''stronger'' than others and some are ''weaker.'' By this, we mean the following: If Type A convergence is stronger than Type B convergence, it means that Type A convergence implies Type B convergence. The below figure summarizes how these types of convergence are related. In this figure, the stronger types of convergence are on top and, as we move to the bottom, the convergence becomes weaker. For example, using the figure, we conclude that if a sequence of random variables converges in probability to a random variable $X$, then the sequence converges in distribution to $X$ as well.
 
-![Different types of convergence and their relationship with each other](images/diff_types_of_convgnc_color.png)
+<p align="center">
+  <img src="./images/diff_types_of_convgnc_color.png" />
+  <br>
+  <strong>Figure 1:</strong> Different types of convergence and their relationship with each other
+</p>
 
 ---
 
@@ -33,7 +37,9 @@ Almost sure convergence implies that, with probability 1, the sequence $X_n(\ome
 Consider the sequence:
 
 $$
+\begin{equation}
 X_n(\omega) = \omega^{1/n}, \quad \omega \in [0,1]
+\end{equation}
 $$
 
 As $n \to \infty$, $X_n(\omega) \to 1$ for all $\omega \in [0,1]$. Therefore, $X_n$ converges almost surely to 1.
@@ -68,7 +74,9 @@ $$
 Then $X_n \to 0$ in probability, since:
 
 $$
+\begin{equation}
 \mathbb{P}(|X_n - 0| > \epsilon) = \frac{1}{n} \to 0 \quad \text{as } n \to \infty
+\end{equation}
 $$
 
 As mentioned previously, **convergence in probability is stronger than convergence in distribution**. That is, if
@@ -77,7 +85,9 @@ $X_n \xrightarrow{p} X$, then $X_n \xrightarrow{d} X$. The converse is not neces
 For example, let $X_1, X_2, X_3, \dots$ be a sequence of i.i.d. **Bernoulli** $\left(\frac{1}{2}\right)$ random variables. Let also $X \sim \text{Bernoulli} \left( \frac{1}{2} \right)$ be independent from the $X_i$'s. Then, $X_n \xrightarrow{d} X$. However, $X_n$ does not converge in probability to $X$, since $|X_n - X|$ is in fact also a **Bernoulli** $\left( \frac{1}{2} \right)$ random variable, and
 
 $$
+\begin{equation}
 P(|X_n - X| \geq \epsilon) = \frac{1}{2}, \quad \text{for } 0 < \epsilon < 1.
+\end{equation}
 $$
 
 ---
@@ -112,7 +122,9 @@ $$
 Let $X_2, X_3, X_4, \dots$ be a sequence of random variables with the cumulative distribution function:
 
 $$
+\begin{equation}
 F_{X_n}(x) = \begin{cases} 1 - (1 - \frac{1}{n})^{nx} & x > 0 \\ 0 & \text{otherwise} \end{cases}
+\end{equation}
 $$
 
 Then $X_n$ converges in distribution to $\text{Exponential}(\lambda = 1)$.
@@ -124,7 +136,9 @@ Then $X_n$ converges in distribution to $\text{Exponential}(\lambda = 1)$.
 A sequence of random variables $X_1,X_2,\dots,X_n,\dots$ converges to a random variable $X$ in mean square (m.s.) if
 
 $$
+\begin{equation}
 \lim_{n\to\infty} \mathbb{E}\big[(X_n - X)^2\big] = 0.
+\end{equation}
 $$
 
 We often write this as $X_n \xrightarrow{m.s.} X$.
@@ -138,12 +152,12 @@ As discussed previously, the different types of convergences are related to each
 1. **Almost Sure Convergence** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
 2. **Convergence in Mean Square** $\Rightarrow$ **Convergence in Probability** $\Rightarrow$ **Convergence in Distribution**
 
-| Type of Convergence | Notation                   | Implies                     |
-| ------------------- | -------------------------- | --------------------------- |
+| Type of Convergence | Notation                     | Implies                     |
+| ------------------- | ---------------------------- | --------------------------- |
 | Almost Sure         | $X_n \xrightarrow{a.s.} X$ | Convergence in Probability  |
 | In Mean Square      | $X_n \xrightarrow{m.s.} X$ | Convergence in Probability  |
 | In Probability      | $X_n \xrightarrow{P} X$    | Convergence in Distribution |
-| In Distribution     | $X_n \xrightarrow{d} X$    | —                           |
+| In Distribution     | $X_n \xrightarrow{d} X$    | —                          |
 
 However, the converses do not generally hold.
 
@@ -167,6 +181,10 @@ The sample average $\bar{X}_n$ converges in probability to the expected value $\
 
 If $X_i \sim \text{Bernoulli}(0.5)$, then $\bar{X}_n \to 0.5$ in probability.
 
-![WLON plot](images/wlln_simulation.png)
+<p align="center">
+  <img src="./images/wlln_simulation.png" />
+  <br>
+  <strong>Figure 2:</strong> Weak Law of Large numbers
+</p>
 
 ---
