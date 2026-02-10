@@ -2,38 +2,89 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "1: Which of the following is a necessary condition for the Weak Law of Large Numbers to hold?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Random variables must be bounded",
+        "b": "Random variables must have finite variance",
+        "c": "Random variables must have a finite mean",
+        "d": "Random variables must be deterministic"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
-    },
-    {
-      "question": "This is a Sample Question 2?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
-      },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Boundedness is sufficient but not necessary for WLLN. While bounded random variables automatically have finite mean and variance, unbounded distributions like Exponential or certain Pareto distributions can still satisfy WLLN as long as they have finite mean.",
+        "b": "Finite variance is sufficient but not necessary for WLLN. The classical Khinchin's WLLN only requires finite mean. However, having finite variance allows us to use Chebyshev's inequality for a simpler proof.",
+        "c": "Correct. The Weak Law of Large Numbers requires the random variables to be i.i.d. with finite expected value $\\mu$. The sample average $\\bar{X}_n = \\frac{1}{n}\\sum_{i=1}^n X_i$ then converges in probability to $\\mu$ as $n \\to \\infty$.",
+        "d": "Random variables must be random (non-deterministic) for the law to be meaningful. If they were deterministic constants, there would be no need for a law of large numbers - the average would simply be that constant value."
       },
       "correctAnswer": "c",
-      "difficulty": "beginner"
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "2: Which type of convergence does the Weak Law of Large Numbers (WLLN) guarantee?",
+      "answers": {
+        "a": "Convergence in distribution",
+        "b": "Convergence almost surely",
+        "c": "Convergence in probability",
+        "d": "Convergence in total variation"
+      },
+      "explanations": {
+        "a": "While convergence in probability implies convergence in distribution, WLLN provides the stronger guarantee of convergence in probability. Additionally, convergence in distribution to a constant is equivalent to convergence in probability, but WLLN is stated as convergence in probability.",
+        "b": "Almost sure convergence is what the Strong Law of Large Numbers (SLLN) guarantees, not the Weak Law. SLLN requires stronger conditions and provides a stronger conclusion: $\\mathbb{P}(\\lim_{n\\to\\infty} \\bar{X}_n = \\mu) = 1$.",
+        "c": "Correct. The WLLN states that for i.i.d. random variables with finite mean $\\mu$, the sample average $\\bar{X}_n = \\frac{1}{n}\\sum_{i=1}^n X_i$ converges in probability to $\\mu$: $\\mathbb{P}(|\\bar{X}_n - \\mu| > \\epsilon) \\to 0$ for any $\\epsilon > 0$.",
+        "d": "Total variation convergence is a very strong form of convergence for probability measures, much stronger than what WLLN provides. It's typically used in the context of Markov chains and mixing properties, not laws of large numbers."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "3: In the experiment with shrinking intervals (moving rectangles), what is the primary reason the sequence does not converge almost surely?",
+      "answers": {
+        "a": "The sample mean converges to a wrong value",
+        "b": "Each point ω lies in infinitely many non-overlapping intervals",
+        "c": "The expectation does not exist",
+        "d": "The random variables are not identically distributed"
+      },
+      "explanations": {
+        "a": "The sample mean does converge in probability to the correct expected value (demonstrating WLLN), but fails to converge almost surely. The issue is not about the limiting value being wrong, but about the pathwise behavior.",
+        "b": "Correct. In the shrinking intervals construction, as intervals move around and shrink, each fixed point $\\omega \\in [0,1]$ will be hit by infinitely many intervals. This causes $X_n(\\omega)$ to fluctuate infinitely often between 0 and 1, preventing pointwise convergence for any $\\omega$. Thus $\\mathbb{P}(\\lim_{n\\to\\infty} X_n = \\mu) = 0$, not 1.",
+        "c": "The expectation exists and is finite in this construction. Each random variable $X_n$ is bounded (typically between 0 and 1 or similar), so $\\mathbb{E}[X_n]$ is well-defined. The issue is with the pathwise convergence, not the existence of moments.",
+        "d": "The random variables in the construction are identically distributed (e.g., Bernoulli with the same parameter), so this is not the issue. They are also independent. The problem is purely about the nature of almost sure convergence vs. convergence in probability."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "4: Suppose $X_n \\xrightarrow{a.s.} X$. Which of the following must be true?",
+      "answers": {
+        "a": "There exists a subsequence of $X_n$ that converges in mean to $X$",
+        "b": "Every subsequence of $X_n$ converges in probability to $X$",
+        "c": "$X_n$ is bounded almost surely",
+        "d": "$X_n$ converges in distribution to a constant"
+      },
+      "explanations": {
+        "a": "This is not necessarily true. Almost sure convergence does not guarantee convergence in mean (or $L^1$ convergence) without additional conditions like uniform integrability. For example, $X_n = n \\cdot \\mathbb{1}_{[0,1/n]}$ on $[0,1]$ converges a.s. to 0 but not in mean.",
+        "b": "Correct. Almost sure convergence implies convergence in probability by the dominated convergence theorem or direct proof. Since this property is preserved under taking subsequences (any subsequence of an a.s. convergent sequence also converges a.s.), every subsequence converges in probability to $X$.",
+        "c": "This is false. Almost sure convergence does not require boundedness. For example, let $X_n = X + 1/n$ where $X$ is unbounded (say, $X \\sim N(0,1)$). Then $X_n \\xrightarrow{a.s.} X$, but neither $X_n$ nor $X$ is bounded.",
+        "d": "While $X_n$ does converge in distribution (since a.s. convergence implies convergence in distribution), $X$ is not necessarily a constant. For instance, $X$ could be a standard normal random variable, which is not a constant."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "5: Which of the following sequences converges in probability to $0$?",
+      "answers": {
+        "a": "$X_n = 1$ with probability $1/n$, $0$ otherwise",
+        "b": "$X_n = 1$ if n is even, $0$ if n is odd",
+        "c": "$X_n \\sim$  $Uniform(0, 1/n)$",
+        "d": "Both a and c"
+      },
+      "explanations": {
+        "a": "For any $\\epsilon > 0$, $\\mathbb{P}(|X_n - 0| > \\epsilon) = \\mathbb{P}(X_n = 1) = 1/n \\to 0$ as $n \\to \\infty$. So this converges in probability to 0. This is correct, but check option (d).",
+        "b": "This sequence oscillates deterministically between 0 and 1, never settling down. For $\\epsilon = 0.5$, $\\mathbb{P}(|X_n - 0| > 0.5) = 1/2$ for even $n$ (when $X_n = 1$), which does not converge to 0. Thus, this does not converge in probability.",
+        "c": "For $X_n \\sim \\text{Uniform}(0, 1/n)$ and any $\\epsilon > 0$, for large enough $n$ such that $1/n < \\epsilon$, we have $\\mathbb{P}(|X_n| > \\epsilon) = 0 \\to 0$. So this converges in probability to 0. This is correct, but check option (d).",
+        "d": "Correct. Both sequences (a) and (c) converge in probability to 0. In (a), the probability of deviating from 0 is exactly $1/n \\to 0$. In (c), the entire support of $X_n$ shrinks to $\\{0\\}$ as $n \\to \\infty$, ensuring $\\mathbb{P}(|X_n| > \\epsilon) \\to 0$ for any $\\epsilon > 0$."
+      },
+      "correctAnswer": "d",
+      "difficulty": "intermediate"
     }
   ]
 }

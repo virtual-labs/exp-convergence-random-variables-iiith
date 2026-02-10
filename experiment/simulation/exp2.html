@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <title>Weak Law of Large Numbers</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tasks-heading">Tasks</div>
+
+        <div class="v-tabs">
+            <ul>
+                <li><a href="exp1.html">Sub Experiment - 1</a></li>
+                <li class="is-active"><a>Sub Experiment - 2</a></li>
+            </ul>
+        </div>
+
+        <div class="subheading-box">
+            <h3 class="title">Demonstration of the Weak Law of Large Numbers (WLLN)</h3>
+        </div>
+
+        <div class="columns is-centered">
+            <div class="column is-11">
+                <div class="v-collapsible-instruction-container v-instruction-container">
+                    <div class="v-collapsible is-size-5">Instructions</div>
+                    <div class="v-content" style="text-align: left; padding: 0 10%;">
+                        <h4>Theory Overview</h4>
+                        <p>The Weak Law of Large Numbers (WLLN) is a fundamental theorem in probability. It states that for a set of independent and identically distributed (i.i.d.) random variables, the sample mean will converge **in probability** to the true theoretical mean (or expected value) as the number of samples increases.</p>
+                        <p style="text-align:center; margin: 1rem 0;">
+                           \( \bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i \xrightarrow{P} \mu \text{ as } n \to \infty \)
+                        </p>
+                         <h4 style="margin-top: 1rem;">Procedure</h4>
+                        <ul style="list-style: disc; margin-left: 20px; margin-top: 1rem;">
+                            <li>Select a probability distribution (e.g., Bernoulli, Normal) from the dropdown menu.</li>
+                            <li>Adjust the parameters for your chosen distribution. The theoretical mean will update automatically.</li>
+                            <li>Set the maximum number of samples (n) to generate using the slider.</li>
+                            <li>Click **"Run Experiment"**.</li>
+                            <li>Watch the plot and the observations panel update in real-time for 5 seconds. The y-axis of the plot is fixed to provide a stable frame of reference for the convergence.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <section id="page1">
+        <div class="columns is-centered">
+            <!-- Main Content Column -->
+            <div class="column is-7-desktop is-12-tablet">
+                <div class="white-boxed-panel">
+                    <div class="wlln-controls">
+                        <div class="control-item">
+                            <label for="distribution-type">Distribution Type</label>
+                            <select id="distribution-type">
+                                <option value="bernoulli">Bernoulli (p)</option>
+                                <option value="uniform">Uniform (a, b)</option>
+                                <option value="normal">Normal (µ, σ)</option>
+                                <option value="exponential">Exponential (λ)</option>
+                            </select>
+                        </div>
+                        <!-- ADDED WRAPPER AND BLANK LABEL FOR ALIGNMENT -->
+                        <div class="control-item">
+                            <label class="blank-label">&nbsp;</label>
+                            <div id="parameter-controls" class="parameters">
+                                <!-- Parameters will be loaded here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slider-container">
+                        <label for="sample-size">Max Samples (n): <span id="sample-size-value">1000</span></label>
+                        <input id="sample-size" class="slider" type="range" min="10" max="10000" value="1000" step="10">
+                    </div>
+
+                    <div class="run-controls">
+                        <button id="run-btn" class="button is-primary">Run Experiment</button>
+                        <button id="reset-btn" class="button is-light">Reset</button>
+                    </div>
+
+                    <div class="chart-wrapper" style="height: 450px; margin-top: 2rem;">
+                        <canvas id="convergence-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- Observations Column -->
+            <div class="column is-4-desktop is-12-tablet">
+                <div class="v-datalist-container components-list">
+                    <div class="v-datalist-title">Observations</div>
+                    <div id="observations" class="observation-stats">
+                        <div id="obs-context">
+                            <p class="placeholder">Configure your experiment and click "Run" to see the analysis.</p>
+                        </div>
+                        <div id="obs-realtime" style="display: none;">
+                            <h4>Real-time Analysis</h4>
+                            <p><strong>Current Sample Mean:</strong> <span id="current-mean">-</span></p>
+                            <p><strong>Current Absolute Error:</strong> <span id="absolute-error">-</span></p>
+                        </div>
+                        <div id="obs-conclusion" style="display: none;">
+                            <hr>
+                            <h4>Conclusion</h4>
+                            <p id="conclusion-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
+    <script src="./js/wlln.js"></script>
+</body>
+</html>
