@@ -1,0 +1,14 @@
+
+/home/runner/work/exp-convergence-random-variables-iiith/exp-convergence-random-variables-iiith/experiment/simulation/js/convergence.js
+   30:28  warning  'Chart' is not defined    no-undef
+   81:28  warning  'Chart' is not defined    no-undef
+  122:29  warning  'Chart' is not defined    no-undef
+  326:27  warning  'MathJax' is not defined  no-undef
+  327:9   warning  'MathJax' is not defined  no-undef
+
+/home/runner/work/exp-convergence-random-variables-iiith/exp-convergence-random-variables-iiith/experiment/simulation/js/wlln.js
+  189:20  warning  'Chart' is not defined                        no-undef
+  233:17  warning  Unexpected lexical declaration in case block  no-case-declarations
+
+✖ 7 problems (0 errors, 7 warnings)
+
