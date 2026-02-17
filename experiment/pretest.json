@@ -55,10 +55,10 @@
     {
       "question": "4: Let $F_{X_n}(x) = \\begin{cases} 1 - \\left(1 - \\frac{1}{n}\\right)^{nx}, & x > 0, & x \\leq 0 \\end{cases}$. What does $X_n$ converge in distribution to?",
       "answers": {
-        "a": "U(0,1)",
-        "b": "N(0,1)",
-        "c": "Exp(1)",
-        "d": "Pois(1)"
+        "a": "Uniform Distribution, continuous on (0,1)",
+        "b": "Normal Distribution with mean = 0 and variance = 1",
+        "c": "Exponential Distribution with rate 1 ",
+        "d": "Poisson Distribution with mean = 1"
       },
       "explanations": {
         "a": "Uniform distribution U(0,1): continuous on (0,1) with density f(x)=1. Mean = 1/2, variance = 1/12, so standard deviation = sqrt(1/12) ≈ 0.289.",
